@@ -1,8 +1,15 @@
 .App {
+  max-width: 1400px;
+  height: 100vh;
   margin: 0 auto;
 }
 
 .wrapper {
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.mainP {
+  margin-top: 20px;
+  text-align: center;
 }
