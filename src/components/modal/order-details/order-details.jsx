@@ -23,7 +23,7 @@ const OrderDetails = ({ setActive }) => {
 };
 
 OrderDetails.propTypes = {
-  setActive: PropTypes.func,
+  setActive: PropTypes.func.isRequired,
 };
 
 export default OrderDetails;

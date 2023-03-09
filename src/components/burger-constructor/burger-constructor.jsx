@@ -10,6 +10,7 @@ import styles from './burger-constructor.module.css';
 import '../../index.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../modal/order-details/order-details';
+import ModalOverlay from '../modal/modal-overlay/modal-overlay';
 
 const BurgerConstructor = ({ data }) => {
   const [active, setActive] = useState(false);
@@ -64,9 +65,14 @@ const BurgerConstructor = ({ data }) => {
           >
             Оформить заказ
           </Button>
-          <Modal active={active} setActive={setActive}>
-            <OrderDetails setActive={setActive} />
-          </Modal>
+          {active && (
+            <>
+              <ModalOverlay active={active} setActive={setActive} />
+              <Modal active={active} setActive={setActive}>
+                <OrderDetails setActive={setActive} />
+              </Modal>
+            </>
+          )}
         </>
       </div>
     </div>

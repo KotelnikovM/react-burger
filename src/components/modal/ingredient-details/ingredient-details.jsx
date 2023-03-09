@@ -1,31 +1,24 @@
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
+import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
 
-const IngredientDetails = ({
-  name,
-  calories,
-  proteins,
-  fat,
-  carbohydrates,
-  image_large,
-  setActive,
-}) => {
+const IngredientDetails = ({ item, setActive }) => {
   return (
     <div className={styles.ingredientDetails}>
       <div className={styles.ingredientDetailsHead}>
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
         <CloseIcon onClick={() => setActive(false)} type="primary" />
       </div>
-      <img className="mb-4" src={image_large} alt={name} />
-      <p className="mb-8 text text_type_main-medium">{name}</p>
+      <img className="mb-4" src={item.image_large} alt={item.name} />
+      <p className="mb-8 text text_type_main-medium">{item.name}</p>
       <div className={styles.ingredientDetailsInfo}>
         <div className="mr-5">
           <p className="text text_type_main-small text_color_inactive">
             Каллории,ккал
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {calories}
+            {item.calories}
           </p>
         </div>
         <div className="mr-5">
@@ -33,7 +26,7 @@ const IngredientDetails = ({
             Белки, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {proteins}
+            {item.proteins}
           </p>
         </div>
         <div className="mr-5">
@@ -41,7 +34,7 @@ const IngredientDetails = ({
             Жиры, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {fat}
+            {item.fat}
           </p>
         </div>
         <div>
@@ -49,7 +42,7 @@ const IngredientDetails = ({
             Углеводы, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {carbohydrates}
+            {item.carbohydrates}
           </p>
         </div>
       </div>
@@ -58,20 +51,8 @@ const IngredientDetails = ({
 };
 
 IngredientDetails.propTypes = {
-  item: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    image: PropTypes.string,
-    image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    type: PropTypes.string,
-    __v: PropTypes.number,
-    _id: PropTypes.string,
-  }),
+  item: ingredientPropTypes,
+  setActive: PropTypes.func.isRequired,
 };
 
 export default IngredientDetails;

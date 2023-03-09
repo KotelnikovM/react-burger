@@ -18,7 +18,7 @@ const App = () => {
     try {
       const response = await fetch(INGREDIENTS_URL);
       let ingredients = await response.json();
-      setData([...ingredients.data]);
+      setData(ingredients.data);
     } catch (error) {
       console.log(error);
     }

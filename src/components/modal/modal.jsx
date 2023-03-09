@@ -1,26 +1,34 @@
 import { createPortal } from 'react-dom';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ModalOverlay from './modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 
 const modal = document.getElementById('modal');
 
 const Modal = ({ active, setActive, children }) => {
-  document.onkeydown = (e) => {
-    if (e.code === 'Escape') {
-      setActive(false);
-    }
-  };
+  useEffect(() => {
+    const handleESCclose = (e) => {
+      if (e.code === 'Escape') {
+        setActive(false);
+      }
+    };
+    document.addEventListener('keydown', handleESCclose);
+
+    return () => document.removeEventListener('keydown', handleESCclose);
+  }, [active]);
 
   return createPortal(
-    <ModalOverlay active={active} setActive={setActive}>
-      <div
-        className={styles.modal__content}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
-    </ModalOverlay>,
+    <div
+      className={
+        !active ? styles.modal__content : styles.modal__content__active
+      }
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      {children}
+    </div>,
+
     modal
   );
 };
