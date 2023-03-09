@@ -12,6 +12,8 @@ const App = () => {
     fetchData();
   }, []);
 
+  // 'test-comment'
+
   async function fetchData() {
     try {
       const response = await fetch(INGREDIENTS_URL);
