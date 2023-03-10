@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './modal.module.css';
+import ModalOverlay from './modal-overlay/modal-overlay';
 
 const modal = document.getElementById('modal');
 
@@ -26,6 +27,7 @@ const Modal = ({ active, setActive, children }) => {
         e.stopPropagation();
       }}
     >
+      <ModalOverlay active={active} setActive={setActive} />
       {children}
     </div>,
 

@@ -1,7 +1,3 @@
-:root {
-  --height: auto;
-}
-
 .modal__content {
   background-color: #1c1c21;
   max-width: 720px;
@@ -15,17 +11,16 @@
     0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
   opacity: 0;
-  transition: 0.5s;
+  /* transition: 0.5s; */
   z-index: -1;
 }
 
 .modal__content__active {
-  position: fixed;
+  /* position: relative; */
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: calc(50% - 720px / 2);
-  margin: 0 auto;
-  transform: translate(20% -30%);
   background-color: #1c1c21;
   max-width: 720px;
   background: #1c1c21;
@@ -35,6 +30,6 @@
     0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
   opacity: 1;
-  z-index: 1;
-  transition: 0.5s;
+  z-index: 2;
+  transition: 0.3s;
 }

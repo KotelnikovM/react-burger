@@ -11,10 +11,17 @@ import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
 
 const IngredientItem = ({ item }) => {
   const [modalActive, setModalActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div className={styles.item} onClick={() => setModalActive(true)}>
+      <div
+        className={styles.item}
+        onClick={() => {
+          setModalActive(true);
+          setIsOpen(true);
+        }}
+      >
         <img src={item.image} alt={item.name} />
         <div className={styles.priceAndIcon}>
           <p className="mr-2 mb-2 text text_type_digits-default">
@@ -31,13 +38,10 @@ const IngredientItem = ({ item }) => {
         />
       </div>
 
-      {modalActive && (
-        <>
-          <ModalOverlay active={modalActive} setActive={setModalActive} />
-          <Modal active={modalActive} setActive={setModalActive}>
-            <IngredientDetails item={item} setActive={setModalActive} />
-          </Modal>
-        </>
+      {isOpen && (
+        <Modal active={modalActive} setActive={setModalActive}>
+          <IngredientDetails item={item} setActive={setModalActive} />
+        </Modal>
       )}
     </>
   );

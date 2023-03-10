@@ -14,6 +14,7 @@ import ModalOverlay from '../modal/modal-overlay/modal-overlay';
 
 const BurgerConstructor = ({ data }) => {
   const [active, setActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.burgerConstructor}>
@@ -61,14 +62,17 @@ const BurgerConstructor = ({ data }) => {
             htmlType="button"
             type="primary"
             size="medium"
-            onClick={() => setActive(true)}
+            onClick={() => {
+              setIsOpen(true);
+              setActive(true);
+            }}
           >
             Оформить заказ
           </Button>
-          {active && (
+          {isOpen && (
             <>
-              <ModalOverlay active={active} setActive={setActive} />
               <Modal active={active} setActive={setActive}>
+                <ModalOverlay active={active} setActive={setActive} />
                 <OrderDetails setActive={setActive} />
               </Modal>
             </>
