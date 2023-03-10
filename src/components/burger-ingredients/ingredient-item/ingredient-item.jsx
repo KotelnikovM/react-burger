@@ -6,12 +6,10 @@ import {
 import styles from './ingredient-item.module.css';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../modal/ingredient-details/ingredient-details';
-import ModalOverlay from '../../modal/modal-overlay/modal-overlay';
 import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
 
 const IngredientItem = ({ item }) => {
   const [modalActive, setModalActive] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -19,7 +17,6 @@ const IngredientItem = ({ item }) => {
         className={styles.item}
         onClick={() => {
           setModalActive(true);
-          setIsOpen(true);
         }}
       >
         <img src={item.image} alt={item.name} />
@@ -38,8 +35,8 @@ const IngredientItem = ({ item }) => {
         />
       </div>
 
-      {isOpen && (
-        <Modal active={modalActive} setActive={setModalActive}>
+      {modalActive && (
+        <Modal setActive={setModalActive}>
           <IngredientDetails item={item} setActive={setModalActive} />
         </Modal>
       )}

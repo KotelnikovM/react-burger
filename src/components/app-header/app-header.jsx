@@ -11,23 +11,35 @@ const AppHeader = () => {
     <header className={styles.appHeader}>
       <div className={styles.container}>
         <div className={styles.burgerConstructorTab}>
-          <BurgerIcon type="primary" />
-          <p className="text text_type_main-default">Конструктор</p>
+          <a href="#">
+            <BurgerIcon type="primary" />
+          </a>
+          <a href="#">
+            <p className="text text_type_main-default">Конструктор</p>
+          </a>
         </div>
         <div className={styles.orderFeedTab}>
-          <ListIcon type="secondary" />
-          <p className="text text_type_main-default text_color_inactive">
-            Лента заказов
-          </p>
+          <a href="#">
+            <ListIcon type="secondary" />
+          </a>
+          <a href="#">
+            <p className="text text_type_main-default text_color_inactive">
+              Лента заказов
+            </p>
+          </a>
         </div>
-        <div className={styles.logoTab}>
+        <a href="#" className={styles.logoTab}>
           <Logo />
-        </div>
+        </a>
         <div className={styles.personalAreaTab}>
-          <ProfileIcon type="secondary" />
-          <p className="text text_type_main-default text_color_inactive">
-            Личный кабинет
-          </p>
+          <a href="#">
+            <ProfileIcon type="secondary" />
+          </a>
+          <a href="#">
+            <p className="text text_type_main-default text_color_inactive">
+              Личный кабинет
+            </p>
+          </a>
         </div>
       </div>
     </header>

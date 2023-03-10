@@ -7,7 +7,13 @@ import styles from './burger-ingredients.module.css';
 import { ingredientPropTypes } from '../../types/ingredientPropTypes';
 
 const BurgerIngredients = ({ data }) => {
-  const [current, setCurrent] = useState('buns');
+  const Tabs = {
+    BUNS: 'buns',
+    SAUSES: 'sauses',
+    MAINS: 'mains',
+  };
+
+  const [current, setCurrent] = useState(Tabs.BUNS);
 
   return (
     <div>
@@ -18,11 +24,7 @@ const BurgerIngredients = ({ data }) => {
         <Tab value="sauces" active={current === 'sauces'} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab
-          value="fillings"
-          active={current === 'fillings'}
-          onClick={setCurrent}
-        >
+        <Tab value="mains" active={current === 'mains'} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>

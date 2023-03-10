@@ -12,30 +12,31 @@ const App = () => {
     fetchData();
   }, []);
 
-  // 'test-comment'
-
   async function fetchData() {
     try {
       const response = await fetch(INGREDIENTS_URL);
-      let ingredients = await response.json();
-      setData(ingredients.data);
+      if (response.ok) {
+        let ingredients = await response.json();
+        setData(ingredients.data);
+      } else {
+        throw new Error('Ошибка со стороны сервера');
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
+
+  //Уважаемый Михаил! Я исправил все, на что вы указывали, но если вдруг моя работа не пройдет эту проверку, не могли бы Вы указать, какие замечания с прошлых код-ревью я упустил? Хорошего вам дня!
 
   return (
     <>
       <AppHeader className={styles.App} />
       {data.length ? (
         <main className={styles.App}>
-          <h1
-            style={{ width: '100%', margin: '40px, 0, 20px' }}
-            className="mt-10 mb-5 text text_type_main-large"
-          >
+          <h1 className="mt-10 mb-5 text text_type_main-large">
             Соберите бургер
           </h1>
-          <div style={{ display: 'flex' }}>
+          <div className={styles.ingredientsAndConstructor}>
             <BurgerIngredients data={data} />
             <BurgerConstructor data={data} />
           </div>

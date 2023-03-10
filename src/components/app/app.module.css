@@ -4,6 +4,10 @@
   margin: 0 auto;
 }
 
+.ingredientsAndConstructor {
+  display: flex;
+}
+
 .wrapper {
   max-width: 1400px;
   margin: 0 auto;

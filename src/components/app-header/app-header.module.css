@@ -1,10 +1,20 @@
+a {
+  text-decoration: none;
+  color: #f2f2f3;
+  display: flex;
+  align-items: center;
+}
+
+a:active {
+  color: #f2f2f3;
+}
+
 .appHeader {
   width: 100%;
   max-height: 88px;
   display: flex;
   background: #1c1c21;
 }
-
 .container {
   max-width: 1400px;
   width: 100%;

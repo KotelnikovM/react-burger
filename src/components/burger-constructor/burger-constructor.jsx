@@ -10,11 +10,9 @@ import styles from './burger-constructor.module.css';
 import '../../index.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../modal/order-details/order-details';
-import ModalOverlay from '../modal/modal-overlay/modal-overlay';
 
 const BurgerConstructor = ({ data }) => {
   const [active, setActive] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.burgerConstructor}>
@@ -44,7 +42,6 @@ const BurgerConstructor = ({ data }) => {
             })}
         </div>
         <ConstructorElement
-          className={styles.bla}
           type="bottom"
           isLocked={true}
           text="Краторная булка N-200i (низ)"
@@ -63,16 +60,14 @@ const BurgerConstructor = ({ data }) => {
             type="primary"
             size="medium"
             onClick={() => {
-              setIsOpen(true);
               setActive(true);
             }}
           >
             Оформить заказ
           </Button>
-          {isOpen && (
+          {active && (
             <>
-              <Modal active={active} setActive={setActive}>
-                <ModalOverlay active={active} setActive={setActive} />
+              <Modal setActive={setActive}>
                 <OrderDetails setActive={setActive} />
               </Modal>
             </>
