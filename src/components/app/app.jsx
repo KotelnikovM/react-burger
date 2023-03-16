@@ -16,7 +16,7 @@ const App = () => {
     try {
       const response = await fetch(INGREDIENTS_URL);
       if (response.ok) {
-        let ingredients = await response.json();
+        const ingredients = await response.json();
         setData(ingredients.data);
       } else {
         throw new Error('Ошибка со стороны сервера');
