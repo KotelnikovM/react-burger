@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -15,6 +15,21 @@ const BurgerIngredients = ({ data }) => {
 
   const [current, setCurrent] = useState(Tabs.BUNS);
 
+  const buns = useMemo(
+    () => data.filter((item) => item.type === 'bun'),
+    [data]
+  );
+
+  const sauses = useMemo(
+    () => data.filter((item) => item.type === 'sauce'),
+    [data]
+  );
+
+  const mains = useMemo(
+    () => data.filter((item) => item.type === 'main'),
+    [data]
+  );
+
   return (
     <div>
       <div className={styles.burgerIngredientsTabs}>
@@ -30,11 +45,11 @@ const BurgerIngredients = ({ data }) => {
       </div>
       <div className={styles.wrap}>
         <p className="text text_type_main-medium">Булки</p>
-        <IngredientsGroup data={data.filter((item) => item.type === 'bun')} />
+        <IngredientsGroup data={buns} />
         <p className="text text_type_main-medium">Соусы</p>
-        <IngredientsGroup data={data.filter((item) => item.type === 'sauce')} />
+        <IngredientsGroup data={sauses} />
         <p className="text text_type_main-medium">Начинки</p>
-        <IngredientsGroup data={data.filter((item) => item.type === 'main')} />
+        <IngredientsGroup data={mains} />
       </div>
     </div>
   );
