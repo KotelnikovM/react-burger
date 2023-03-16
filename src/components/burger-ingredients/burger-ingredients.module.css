@@ -1,0 +1,23 @@
+.wrap {
+  max-width: 600px;
+  max-height: 65vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.burgerIngredientsTabs {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}
