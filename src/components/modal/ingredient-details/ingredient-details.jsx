@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
-import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
+import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 
 const IngredientDetails = ({ item, setActive }) => {
   return (

@@ -6,7 +6,7 @@ import {
 import styles from './ingredient-item.module.css';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../modal/ingredient-details/ingredient-details';
-import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
+import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 
 const IngredientItem = ({ item }) => {
   const [modalActive, setModalActive] = useState(false);
