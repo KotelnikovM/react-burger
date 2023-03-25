@@ -2,13 +2,22 @@ import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
 import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { INGREDIENT_DETAILS_CLOSE } from '../../../services/actions/ingredient-details-actions';
 
-const IngredientDetails = ({ item, setActive }) => {
+const IngredientDetails = () => {
+  const dispatch = useDispatch();
+
+  const item = useSelector((state) => state.ingredientDetails.infoOfIngredient);
+
   return (
     <div className={styles.ingredientDetails}>
       <div className={styles.ingredientDetailsHead}>
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
-        <CloseIcon onClick={() => setActive(false)} type="primary" />
+        <CloseIcon
+          onClick={() => dispatch({ type: INGREDIENT_DETAILS_CLOSE })}
+          type="primary"
+        />
       </div>
       <img className="mb-4" src={item.image_large} alt={item.name} />
       <p className="mb-8 text text_type_main-medium">{item.name}</p>
@@ -50,9 +59,9 @@ const IngredientDetails = ({ item, setActive }) => {
   );
 };
 
-IngredientDetails.propTypes = {
-  item: ingredientPropTypes,
-  setActive: PropTypes.func.isRequired,
-};
+// IngredientDetails.propTypes = {
+//   item: ingredientPropTypes,
+//   setActive: PropTypes.func.isRequired,
+// };
 
 export default IngredientDetails;

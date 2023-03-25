@@ -5,8 +5,21 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
 import { ingredientPropTypes } from '../../utils/ingredientPropTypes';
+import Modal from '../modal/modal';
+import IngredientDetails from '../modal/ingredient-details/ingredient-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
 
-const BurgerIngredients = ({ data }) => {
+// const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = () => {
+  const isOpened = useSelector(
+    (state) => state.ingredientDetails.isOpenedIngredientDetails
+  );
+
+  const data = useSelector((state) => state.burgerIngredient.ingredients);
+
+  const dispatch = useDispatch();
+
   const Tabs = {
     BUNS: 'buns',
     SAUCES: 'sauces',
@@ -53,6 +66,7 @@ const BurgerIngredients = ({ data }) => {
 
   useEffect(() => {
     tabSwitch();
+    dispatch(getBurgerIngredients());
     return tabSwitch();
   }, [tabSwitch]);
 
@@ -64,7 +78,7 @@ const BurgerIngredients = ({ data }) => {
           active={current === 'buns'}
           onClick={() => {
             setCurrent(Tabs.BUNS);
-            bunsRef.scrollIntoView({ behavior: 'smooth' });
+            bunsRef.current.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           Булки
@@ -74,7 +88,7 @@ const BurgerIngredients = ({ data }) => {
           active={current === 'sauces'}
           onClick={() => {
             setCurrent(Tabs.SAUCES);
-            sausesRef.scrollIntoView({ behavior: 'smooth' });
+            sausesRef.current.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           Соусы
@@ -84,7 +98,7 @@ const BurgerIngredients = ({ data }) => {
           active={current === 'mains'}
           onClick={() => {
             setCurrent(Tabs.MAINS);
-            mainsRef.scrollIntoView({ behavior: 'smooth' });
+            mainsRef.current.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           Начинки
@@ -104,6 +118,12 @@ const BurgerIngredients = ({ data }) => {
         </p>
         <IngredientsGroup data={mains} />
       </div>
+
+      {isOpened && (
+        <Modal>
+          <IngredientDetails />
+        </Modal>
+      )}
     </div>
   );
 };
