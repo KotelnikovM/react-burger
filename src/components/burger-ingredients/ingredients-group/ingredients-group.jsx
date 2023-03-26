@@ -7,7 +7,7 @@ const IngredientsGroup = ({ data }) => {
   return (
     <div className={styles.box}>
       {data?.map((item) => {
-        return <IngredientItem key={item._id} item={item} />;
+        return <IngredientItem key={item._id} {...item} />;
       })}
     </div>
   );

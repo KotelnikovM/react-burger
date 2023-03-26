@@ -7,8 +7,10 @@ import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/act
 import styles from './burger-constructor-item.module.css';
 import { useDrop, useDrag } from 'react-dnd';
 import { useRef } from 'react';
+import { DECREMENT_BURGER_INGREDIENT_COUNT } from '../../../services/actions/burger-ingredients-actions';
 
 export const BurgerConstructorItem = ({
+  itemId,
   image,
   price,
   name,
@@ -17,7 +19,6 @@ export const BurgerConstructorItem = ({
   moveIngredients,
 }) => {
   const dispatch = useDispatch();
-
   const ref = useRef(null);
 
   const [, drop] = useDrop({
@@ -81,6 +82,10 @@ export const BurgerConstructorItem = ({
           dispatch({
             type: DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR,
             ID,
+          });
+          dispatch({
+            type: DECREMENT_BURGER_INGREDIENT_COUNT,
+            payload: { itemId },
           });
         }}
       />

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
 import {
   CurrencyIcon,
@@ -18,6 +17,7 @@ import {
 } from '../../services/actions/burger-constructor-actions';
 import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
+import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -26,11 +26,16 @@ const BurgerConstructor = () => {
   );
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
 
-  const onHandleDropMains = (item) =>
+  const onHandleDropMains = (item) => {
     dispatch({
       type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
       payload: { ...item },
     });
+    dispatch({
+      type: INCREMENT_BURGER_INGREDIENT_COUNT,
+      payload: { itemId: item._id },
+    });
+  };
 
   const [, dropMains] = useDrop({
     accept: ['main', 'sauce'],
@@ -95,18 +100,20 @@ const BurgerConstructor = () => {
                     name={ingredient.name}
                     price={ingredient.price}
                     index={index}
+                    itemId={ingredient._id}
                     moveIngredients={moveIngredients}
                   />
                 )
             )}
           </div>
         ) : (
-          <div ref={dropMains} className="pl-20 ml-1">
+          <div ref={dropMains} className={`pl-20 ml-1 `}>
             <div
               style={{
+                width: '536px',
                 textAlign: 'center',
               }}
-              className="constructor-element"
+              className="constructor-element "
             >
               <span
                 style={{
@@ -148,25 +155,6 @@ const BurgerConstructor = () => {
       </div>
     </div>
   );
-};
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      proteins: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      __v: PropTypes.number.isRequired,
-      _id: PropTypes.string.isRequired,
-    })
-  ),
 };
 
 export default BurgerConstructor;

@@ -12,9 +12,14 @@ import {
   UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
 } from '../../../services/actions/burger-constructor-actions';
 import { useDrag } from 'react-dnd/dist/hooks';
+import {
+  INCREMENT_BURGER_INGREDIENT_COUNT,
+  UPDATE_BUN_COUNT,
+} from '../../../services/actions/burger-ingredients-actions';
 
-const IngredientItem = ({ item }) => {
+const IngredientItem = ({ ...item }) => {
   const ID = uuid();
+  const itemId = item._id;
 
   const [{ isDrag }, dragRef] = useDrag({
     type: item.type,
@@ -42,6 +47,10 @@ const IngredientItem = ({ item }) => {
             ...item,
           },
           isBun: true,
+        }) &&
+        dispatch({
+          type: UPDATE_BUN_COUNT,
+          payload: { itemId },
         })
       : dispatch({
           type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
@@ -49,6 +58,10 @@ const IngredientItem = ({ item }) => {
             ID,
             ...item,
           },
+        }) &&
+        dispatch({
+          type: INCREMENT_BURGER_INGREDIENT_COUNT,
+          payload: { itemId },
         });
   };
 
@@ -69,12 +82,14 @@ const IngredientItem = ({ item }) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text_type_main-default">{item.name}</p>
-        <Counter
-          className={styles.counter}
-          count={1}
-          size="default"
-          extraClass="m-1"
-        />
+        {item.count ? (
+          <Counter
+            className={styles.counter}
+            count={item.count}
+            size="default"
+            extraClass="m-1"
+          />
+        ) : null}
       </div>
     </>
   );

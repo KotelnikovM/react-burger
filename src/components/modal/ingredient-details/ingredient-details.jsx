@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
-import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { INGREDIENT_DETAILS_CLOSE } from '../../../services/actions/ingredient-details-actions';
 
@@ -58,10 +56,5 @@ const IngredientDetails = () => {
     </div>
   );
 };
-
-// IngredientDetails.propTypes = {
-//   item: ingredientPropTypes,
-//   setActive: PropTypes.func.isRequired,
-// };
 
 export default IngredientDetails;

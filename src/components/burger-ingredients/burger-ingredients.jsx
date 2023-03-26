@@ -1,16 +1,13 @@
 import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 
-import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
-import { ingredientPropTypes } from '../../utils/ingredientPropTypes';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
 
-// const BurgerIngredients = ({ data }) => {
 const BurgerIngredients = () => {
   const isOpened = useSelector(
     (state) => state.ingredientDetails.isOpenedIngredientDetails
@@ -68,7 +65,7 @@ const BurgerIngredients = () => {
     tabSwitch();
     dispatch(getBurgerIngredients());
     return tabSwitch();
-  }, [tabSwitch]);
+  }, [tabSwitch, dispatch]);
 
   return (
     <div>
@@ -126,10 +123,6 @@ const BurgerIngredients = () => {
       )}
     </div>
   );
-};
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default BurgerIngredients;

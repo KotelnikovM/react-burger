@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   INGREDIENT_DETAILS_CLOSE,
@@ -6,7 +5,7 @@ import {
 } from '../../../services/actions/ingredient-details-actions';
 import styles from './modal-overlay.module.css';
 
-const ModalOverlay = ({ setActive }) => {
+const ModalOverlay = () => {
   const dispatch = useDispatch();
 
   return (
@@ -19,9 +18,5 @@ const ModalOverlay = ({ setActive }) => {
     ></div>
   );
 };
-
-// ModalOverlay.propTypes = {
-//   setActive: PropTypes.func.isRequired,
-// };
 
 export default ModalOverlay;

@@ -2,11 +2,13 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
+import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-actions';
+import styles from './bun.module.css';
 
 const Bun = ({ bun, coordinate }) => {
   const dispatch = useDispatch();
 
-  const onHandleDropBuns = (item) =>
+  const onHandleDropBuns = (item) => {
     dispatch({
       type: UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
       isBun: true,
@@ -14,6 +16,11 @@ const Bun = ({ bun, coordinate }) => {
         ...item,
       },
     });
+    dispatch({
+      type: UPDATE_BUN_COUNT,
+      payload: { itemId: item._id },
+    });
+  };
 
   const [, dropBuns] = useDrop({
     accept: 'bun',
@@ -34,7 +41,6 @@ const Bun = ({ bun, coordinate }) => {
         />
       ) : (
         <div
-          // ref={dropBuns}
           style={{
             textAlign: 'center',
           }}
@@ -42,7 +48,7 @@ const Bun = ({ bun, coordinate }) => {
             coordinate === 'bottom'
               ? 'constructor-element_pos_bottom'
               : 'constructor-element_pos_top'
-          }`}
+          } ${styles.bun}`}
         >
           <span
             style={{

@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 import ModalOverlay from './modal-overlay/modal-overlay';
 import { useDispatch } from 'react-redux';
-import { INGREDIENT_DETAILS_CLOSE } from '../../services/actions/ingredient-details-actions';
+import {
+  INGREDIENT_DETAILS_CLOSE,
+  ORDER_DETAILS_CLOSE,
+} from '../../services/actions/ingredient-details-actions';
 
 const modal = document.getElementById('modal');
 
-const Modal = ({ setActive, children }) => {
+const Modal = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const handleESCclose = (e) => {
       if (e.code === 'Escape') {
         dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+        dispatch({ type: ORDER_DETAILS_CLOSE });
       }
     };
     document.addEventListener('keydown', handleESCclose);
@@ -32,7 +36,6 @@ const Modal = ({ setActive, children }) => {
       >
         {children}
       </div>
-      {/* <ModalOverlay setActive={setActive} /> */}
       <ModalOverlay />
     </>,
 
@@ -40,9 +43,8 @@ const Modal = ({ setActive, children }) => {
   );
 };
 
-// Modal.propTypes = {
-//   setActive: PropTypes.func.isRequired,
-//   children: PropTypes.element,
-// };
+Modal.propTypes = {
+  children: PropTypes.element,
+};
 
 export default Modal;

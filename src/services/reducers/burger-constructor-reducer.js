@@ -34,7 +34,6 @@ export const burgerConstructorReducer = (state = initialtState, action) => {
     }
 
     case UPDATE_BUN_IN_BURGER_CONSTRUCTOR: {
-      console.log(state.bun, action.payload, action.isBun);
       return {
         ...state,
         bun: action.isBun ? action.payload : state.bun,
