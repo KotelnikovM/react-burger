@@ -33,6 +33,7 @@ export const burgerIngredientReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         hasError: true,
+        ingredients: [],
       };
     }
 

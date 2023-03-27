@@ -87,7 +87,7 @@ const BurgerConstructor = () => {
   return (
     <div className={styles.burgerConstructor}>
       <div className={styles.burgerConstructorItems}>
-        <Bun bun={bun} coordinate="top" />
+        <Bun bun={bun} coordinate="top" position="(верх)" />
         {ingredients.length > 0 ? (
           <div className={styles.fillings} ref={dropMains}>
             {ingredients.map(
@@ -126,7 +126,7 @@ const BurgerConstructor = () => {
             </div>
           </div>
         )}
-        <Bun bun={bun} coordinate="bottom" />
+        <Bun bun={bun} coordinate="bottom" position="(низ)" />
       </div>
       <div className={styles.allPriceAndButton}>
         <div className={styles.allPrice}>

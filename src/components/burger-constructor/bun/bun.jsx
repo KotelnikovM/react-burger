@@ -1,11 +1,14 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
 import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-actions';
 import styles from './bun.module.css';
+import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 
-const Bun = ({ bun, coordinate }) => {
+const Bun = ({ bun, coordinate, position }) => {
   const dispatch = useDispatch();
 
   const onHandleDropBuns = (item) => {
@@ -35,7 +38,7 @@ const Bun = ({ bun, coordinate }) => {
         <ConstructorElement
           type={coordinate}
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} ${position}`}
           price={bun.price}
           thumbnail={bun?.image}
         />
@@ -62,6 +65,12 @@ const Bun = ({ bun, coordinate }) => {
       )}
     </div>
   );
+};
+
+Bun.propTypes = {
+  bun: ingredientPropTypes,
+  coordinate: PropTypes.string,
+  position: PropTypes.string,
 };
 
 export default Bun;

@@ -2,6 +2,8 @@ import {
   ConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
 import styles from './burger-constructor-item.module.css';
@@ -91,4 +93,14 @@ export const BurgerConstructorItem = ({
       />
     </div>
   );
+};
+
+BurgerConstructorItem.propTypes = {
+  itemId: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string,
+  ID: PropTypes.string,
+  index: PropTypes.number,
+  moveIngredients: PropTypes.func,
 };
