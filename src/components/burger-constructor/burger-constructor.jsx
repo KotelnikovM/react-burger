@@ -59,9 +59,12 @@ const BurgerConstructor = () => {
     [dispatch, ingredients]
   );
 
-  const totalPrice =
-    ingredients.reduce((acc, item) => acc + item.price, 0) +
-    Number(bun ? bun?.price : 0) * 2;
+  const totalPrice = useMemo(() => {
+    let price =
+      ingredients.reduce((acc, item) => acc + item.price, 0) +
+      Number(bun ? bun?.price : 0) * 2;
+    return price;
+  }, [ingredients, bun]);
 
   const orderIngredients = useMemo(() => {
     let orderIngredientsIds = [];
@@ -107,7 +110,7 @@ const BurgerConstructor = () => {
             )}
           </div>
         ) : (
-          <div ref={dropMains} className={`pl-20 ml-1 `}>
+          <div ref={dropMains} className={`ml-6 `}>
             <div
               style={{
                 width: '536px',

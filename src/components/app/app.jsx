@@ -17,10 +17,10 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <AppHeader className={styles.App} />
+    <div className={styles.app}>
+      <AppHeader />
       {ingredients.length ? (
-        <main className={styles.App}>
+        <main className={styles.main}>
           <h1 className="mt-10 mb-5 text text_type_main-large">
             Соберите бургер
           </h1>
@@ -36,7 +36,7 @@ const App = () => {
           Упс... что-то пошло не так. Космолет с космобургерами не долетел ;(
         </p>
       )}
-    </>
+    </div>
   );
 };
 

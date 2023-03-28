@@ -64,11 +64,11 @@ const BurgerIngredients = () => {
   useEffect(() => {
     tabSwitch();
     dispatch(getBurgerIngredients());
-    return tabSwitch();
+    // return tabSwitch();
   }, [tabSwitch, dispatch]);
 
   return (
-    <div>
+    <section className={styles.burgerIngredients}>
       <div className={styles.burgerIngredientsTabs} ref={tabsRef}>
         <Tab
           value="buns"
@@ -101,7 +101,7 @@ const BurgerIngredients = () => {
           Начинки
         </Tab>
       </div>
-      <div className={styles.wrap} onScroll={tabSwitch}>
+      <div className={`${styles.wrap} custom-scroll`} onScroll={tabSwitch}>
         <p className="text text_type_main-medium" ref={bunsRef}>
           Булки
         </p>
@@ -121,7 +121,7 @@ const BurgerIngredients = () => {
           <IngredientDetails />
         </Modal>
       )}
-    </div>
+    </section>
   );
 };
 
