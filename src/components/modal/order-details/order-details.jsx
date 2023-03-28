@@ -1,15 +1,20 @@
-import PropTypes from 'prop-types';
 import styles from './order-details.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import img from '../../../images/graphics.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { ORDER_DETAILS_CLOSE } from '../../../services/actions/ingredient-details-actions';
 
-const OrderDetails = ({ setActive }) => {
+const OrderDetails = () => {
+  const dispatch = useDispatch();
+
+  const { number } = useSelector((state) => state.order);
+
   return (
     <div className={styles.orderDetailsContainer}>
       <div className={styles.closeIcon}>
-        <CloseIcon onClick={() => setActive(false)} />
+        <CloseIcon onClick={() => dispatch({ type: ORDER_DETAILS_CLOSE })} />
       </div>
-      <p className="mb-4 text text_type_digits-large">034535</p>
+      <p className="mb-4 text text_type_digits-large">{number}</p>
       <p className="mb-15 text text_type_main-default">идентификатор заказа</p>
       <img className="mb-15" src={img} alt="done" />
       <p className="mb-2 text text_type_main-small">
@@ -20,10 +25,6 @@ const OrderDetails = ({ setActive }) => {
       </p>
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  setActive: PropTypes.func.isRequired,
 };
 
 export default OrderDetails;

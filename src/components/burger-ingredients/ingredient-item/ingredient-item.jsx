@@ -1,23 +1,78 @@
-import { useState } from 'react';
 import {
   CurrencyIcon,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-item.module.css';
-import Modal from '../../modal/modal';
-import IngredientDetails from '../../modal/ingredient-details/ingredient-details';
-import { ingredientPropTypes } from '../../../types/ingredientPropTypes';
+import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
+import { useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import { INGREDIENT_DETAILS_OPEN } from '../../../services/actions/ingredient-details-actions';
+import {
+  ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
+  UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
+} from '../../../services/actions/burger-constructor-actions';
+import { useDrag } from 'react-dnd/dist/hooks';
+import {
+  INCREMENT_BURGER_INGREDIENT_COUNT,
+  UPDATE_BUN_COUNT,
+} from '../../../services/actions/burger-ingredients-actions';
 
-const IngredientItem = ({ item }) => {
-  const [modalActive, setModalActive] = useState(false);
+const IngredientItem = ({ ...item }) => {
+  const ID = uuid();
+  const itemId = item._id;
+
+  const [{ isDrag }, dragRef] = useDrag({
+    type: item.type,
+    item: { ID, ...item },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
+  const dispatch = useDispatch();
+
+  const open = (typeOfIngredient) => {
+    dispatch({
+      type: INGREDIENT_DETAILS_OPEN,
+      payload: {
+        ...item,
+      },
+    });
+
+    typeOfIngredient === 'bun'
+      ? dispatch({
+          type: UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
+          payload: {
+            ID,
+            ...item,
+          },
+          isBun: true,
+        }) &&
+        dispatch({
+          type: UPDATE_BUN_COUNT,
+          payload: { itemId },
+        })
+      : dispatch({
+          type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
+          payload: {
+            ID,
+            ...item,
+          },
+        }) &&
+        dispatch({
+          type: INCREMENT_BURGER_INGREDIENT_COUNT,
+          payload: { itemId },
+        });
+  };
 
   return (
     <>
       <div
-        className={styles.item}
+        className={!isDrag ? styles.item : styles.itemIsDrag}
         onClick={() => {
-          setModalActive(true);
+          open(item.type);
         }}
+        ref={dragRef}
       >
         <img src={item.image} alt={item.name} />
         <div className={styles.priceAndIcon}>
@@ -27,19 +82,15 @@ const IngredientItem = ({ item }) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text_type_main-default">{item.name}</p>
-        <Counter
-          className={styles.counter}
-          count={1}
-          size="default"
-          extraClass="m-1"
-        />
+        {item.count ? (
+          <Counter
+            className={styles.counter}
+            count={item.count}
+            size="default"
+            extraClass="m-1"
+          />
+        ) : null}
       </div>
-
-      {modalActive && (
-        <Modal setActive={setModalActive}>
-          <IngredientDetails item={item} setActive={setModalActive} />
-        </Modal>
-      )}
     </>
   );
 };
