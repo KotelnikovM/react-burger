@@ -60,10 +60,10 @@ const BurgerConstructor = () => {
   );
 
   const totalPrice = useMemo(() => {
-    let price =
+    return (
       ingredients.reduce((acc, item) => acc + item.price, 0) +
-      Number(bun ? bun?.price : 0) * 2;
-    return price;
+      Number(bun ? bun?.price : 0) * 2
+    );
   }, [ingredients, bun]);
 
   const orderIngredients = useMemo(() => {

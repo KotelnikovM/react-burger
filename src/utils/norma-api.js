@@ -24,3 +24,36 @@ export const postOrder = async (ingredients) => {
     throw new Error('Что-то пошло не так(');
   }
 };
+
+export const refreshToken = () => {
+  return fetch(`${NORMA_API}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  }).then(responseCheck);
+};
+
+export const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await responseCheck(res);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshToken();
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      localStorage.setItem('accessToken', refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await responseCheck(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
