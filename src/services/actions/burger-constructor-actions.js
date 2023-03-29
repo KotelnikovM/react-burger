@@ -6,3 +6,10 @@ export const UPDATE_BUN_IN_BURGER_CONSTRUCTOR =
   'UPDATE_BUN_IN_BURGER_CONSTRUCTOR';
 export const UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR =
   'UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR';
+
+export const updateIngredients = (ingredients) => {
+  return {
+    type: UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
+    payload: ingredients,
+  };
+};

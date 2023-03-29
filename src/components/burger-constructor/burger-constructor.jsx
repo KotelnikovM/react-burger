@@ -13,7 +13,7 @@ import { BurgerConstructorItem } from './burger-constructor-item/burger-construc
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-  UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
+  updateIngredients,
 } from '../../services/actions/burger-constructor-actions';
 import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
@@ -51,10 +51,7 @@ const BurgerConstructor = () => {
       newIngredients.splice(dragIndex, 1);
       newIngredients.splice(hoverIndex, 0, dragIngredient);
 
-      dispatch({
-        type: UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
-        payload: newIngredients,
-      });
+      dispatch(updateIngredients(newIngredients));
     },
     [dispatch, ingredients]
   );
