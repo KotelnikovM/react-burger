@@ -9,16 +9,16 @@ import styles from './app-header.module.css';
 const AppHeader = () => {
   return (
     <header className={styles.appHeader}>
-      <div className={styles.container}>
-        <div className={styles.burgerConstructorTab}>
+      <ul className={styles.container}>
+        <li className={styles.burgerConstructorTab}>
           <a href="#">
             <BurgerIcon type="primary" />
           </a>
           <a href="#">
             <p className="text text_type_main-default">Конструктор</p>
           </a>
-        </div>
-        <div className={styles.orderFeedTab}>
+        </li>
+        <li className={styles.orderFeedTab}>
           <a href="#">
             <ListIcon type="secondary" />
           </a>
@@ -27,11 +27,13 @@ const AppHeader = () => {
               Лента заказов
             </p>
           </a>
-        </div>
-        <a href="#" className={styles.logoTab}>
-          <Logo />
-        </a>
-        <div className={styles.personalAreaTab}>
+        </li>
+        <li className={styles.logoTab}>
+          <a href="#">
+            <Logo />
+          </a>
+        </li>
+        <li className={styles.personalAreaTab}>
           <a href="#">
             <ProfileIcon type="secondary" />
           </a>
@@ -40,8 +42,8 @@ const AppHeader = () => {
               Личный кабинет
             </p>
           </a>
-        </div>
-      </div>
+        </li>
+      </ul>
     </header>
   );
 };

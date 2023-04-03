@@ -32,6 +32,13 @@ a:active {
   padding: 16px 20px;
 }
 
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+ul {
+  padding-left: 0; /* Сдвигаем список влево */
+}
+
 .burgerConstructorTab {
   padding: 16px 20px 16px 0;
 }
