@@ -8,7 +8,7 @@ import styles from './login.module.css';
 
 export const LoginPage = () => {
   return (
-    <section className={styles.registerWindow}>
+    <section className={styles.loginWindow}>
       <h2 className="mb-6">Вход</h2>
       <EmailInput extraClass="mb-6" placeholder={'E-mail'} />
       <PasswordInput
@@ -24,14 +24,14 @@ export const LoginPage = () => {
         style={{ marginBottom: '20px' }}
       >
         Вы новый пользователь?&nbsp;{' '}
-        <Link className={styles.link} to="/">
+        <Link className={styles.link} to="/registration">
           {' '}
           Зарегистрироваться
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive ">
         Забыли пароль?&nbsp;{' '}
-        <Link className={styles.link} to="/">
+        <Link className={styles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>
