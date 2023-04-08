@@ -13,16 +13,21 @@ export const getIngredients = () => {
 };
 
 export const postOrder = async (ingredients) => {
-  try {
-    const req = await fetch(`${NORMA_API}/orders`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ingredients }),
-    });
-    return await responseCheck(req);
-  } catch (error) {
-    throw new Error('Что-то пошло не так(');
-  }
+  fetchWithRefresh(`${NORMA_API}/orders`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ingredients }),
+  });
+  // try {
+  //   const req = await fetch(`${NORMA_API}/orders`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ ingredients }),
+  //   });
+  //   return await responseCheck(req);
+  // } catch (error) {
+  //   throw new Error('Что-то пошло не так(');
+  // }
 };
 
 export const refreshToken = () => {
@@ -47,8 +52,8 @@ export const fetchWithRefresh = async (url, options) => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
-      localStorage.setItem('refreshToken', refreshData.refreshToken);
       localStorage.setItem('accessToken', refreshData.accessToken);
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await responseCheck(res);

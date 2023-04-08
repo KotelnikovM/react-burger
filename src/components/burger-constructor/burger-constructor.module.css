@@ -1,5 +1,6 @@
 .burgerConstructor {
-  margin-left: auto;
+  margin-left: 10vh;
+  min-width: 560px;
 }
 
 .burgerConstructorItems {
