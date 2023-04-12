@@ -13,21 +13,47 @@ export const getIngredients = () => {
 };
 
 export const postOrder = async (ingredients) => {
-  fetchWithRefresh(`${NORMA_API}/orders`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ingredients }),
-  });
-  // try {
-  //   const req = await fetch(`${NORMA_API}/orders`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ ingredients }),
-  //   });
-  //   return await responseCheck(req);
-  // } catch (error) {
-  //   throw new Error('Что-то пошло не так(');
-  // }
+  // fetchWithRefresh(`${NORMA_API}/orders`, {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ ingredients }),
+  // });
+  try {
+    const req = await fetch(`${NORMA_API}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ingredients }),
+    });
+    return await responseCheck(req);
+  } catch (error) {
+    throw new Error('Что-то пошло не так(');
+  }
+};
+
+// export const register = async (name, email, password) => {
+//   try {
+//     const req = await fetch(`${NORMA_API}/auth/register`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ name, email, password }),
+//     });
+//     return await responseCheck(req);
+//   } catch (error) {
+//     throw new Error('Что-то пошло не так(');
+//   }
+// };
+
+export const getLogin = async (email, password) => {
+  try {
+    const req = await fetch(`${NORMA_API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    return await responseCheck(req);
+  } catch (error) {
+    throw new Error('Что-то пошло не так(');
+  }
 };
 
 export const refreshToken = () => {
@@ -52,13 +78,12 @@ export const fetchWithRefresh = async (url, options) => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
-      localStorage.setItem('accessToken', refreshData.accessToken);
       localStorage.setItem('refreshToken', refreshData.refreshToken);
+      localStorage.setItem('accessToken', refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options);
-      return await responseCheck(res);
-    } else {
-      return Promise.reject(err);
+      return responseCheck(res);
     }
+    return Promise.reject(err);
   }
 };

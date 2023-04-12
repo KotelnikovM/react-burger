@@ -1,23 +1,45 @@
 import { useState } from 'react';
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  Button,
+  EmailInput,
+  Input,
+  PasswordInput,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import styles from './profile.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, patchUser } from '../../services/actions/user-actions';
+import { useEffect } from 'react';
 
 export const ProfilePage = () => {
-  const [name, setName] = useState('');
-  const onChangeName = (e) => {
-    setName(e.target.value);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    setForm({
+      email: user.email,
+      name: user.name,
+      password: '',
+    });
+  }, [user]);
+
+  const resetForms = () => {
+    setForm({
+      email: user.email,
+      name: user.name,
+      password: '',
+    });
   };
 
-  const [email, setEmail] = useState('');
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const [password, setPassword] = useState('');
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
   return (
     <section className={styles.wrapper}>
       <div className={styles.container}>
@@ -37,7 +59,13 @@ export const ProfilePage = () => {
               </Link>
             </li>
             <li className={styles.asideItem}>
-              <Link className={styles.link} to={'/login'}>
+              <Link
+                className={styles.link}
+                to={'/login'}
+                onClick={() => {
+                  dispatch(logout());
+                }}
+              >
                 Выход
               </Link>
             </li>
@@ -47,33 +75,56 @@ export const ProfilePage = () => {
           </p>
         </aside>
         <Input
-          onChange={onChangeName}
+          onChange={onChange}
           placeholder="Имя"
           name="name"
           type="text"
-          value={name}
+          value={form.name}
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
-          color="#8585ad"
+          // color="#8585ad"
         />
-        <Input
-          onChange={onChangeEmail}
-          placeholder="Логин"
-          name="login"
-          type="email"
-          value={email}
-          icon="EditIcon"
+        <EmailInput
+          onChange={onChange}
+          value={form.email}
+          name="email"
+          placeholder="email"
+          isIcon
           extraClass="mb-6"
         />
-        <Input
-          onChange={onChangePassword}
-          value={password}
-          icon="EditIcon"
-          type="password"
+        <PasswordInput
+          onChange={onChange}
+          value={form.password}
           name="password"
-          placeholder="Пароль"
+          placeholder="password"
+          icon="EditIcon"
           extraClass="mb-6"
         />
+
+        {(form.name === user.name &&
+          form.email === user.email &&
+          form.password?.length === 0) || (
+          <div>
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={resetForms}
+            >
+              Отмена
+            </Button>
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={() =>
+                dispatch(patchUser(form.email, form.password, form.name))
+              }
+            >
+              Сохранить
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

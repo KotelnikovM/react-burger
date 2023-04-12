@@ -1,22 +1,60 @@
+import { useState } from 'react';
+
 import {
   PasswordInput,
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from './reset-password.module.css';
+import { passwordReset } from '../../services/actions/user-actions';
 
 export const ResetPasswordPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    password: '',
+    token: '',
+  });
+
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(passwordReset(form.password, form.token)).then(() => {
+      localStorage.removeItem('correctEmail');
+      navigate('/login');
+    });
+  };
+
+  if (!localStorage.getItem('correctEmail')) {
+    return <Navigate to="/" />;
+  }
+
   return (
-    <section className={styles.resetPassworWindow}>
+    <form className={styles.resetPassworWindow} onSubmit={handleSubmit}>
       <h2 className="mb-6">Восстановление пароля</h2>
       <PasswordInput
+        onChange={onChange}
+        value={form.password}
+        name="password"
         extraClass="mb-6"
         placeholder={'Введите новый пароль'}
         icon={'ShowIcon'}
       />
-      <Input extraClass="mb-6" placeholder={'Введите код из письма'} />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mb-20">
+      <Input
+        onChange={onChange}
+        extraClass="mb-6"
+        placeholder={'Введите код из письма'}
+        type="text"
+        name="token"
+        value={form.token}
+      />
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
         Сохранить
       </Button>
       <p
@@ -29,6 +67,6 @@ export const ResetPasswordPage = () => {
           Войти
         </Link>
       </p>
-    </section>
+    </form>
   );
 };

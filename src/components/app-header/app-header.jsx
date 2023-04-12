@@ -5,16 +5,20 @@ import {
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useMatch } from 'react-router-dom';
 import styles from './app-header.module.css';
 
 const AppHeader = () => {
-  const [constructorActive, setConstructorActive] = useState(false);
+  // const [constructorActive, setConstructorActive] = useState(false);
   const [orderActive, setOrderActive] = useState(false);
-  const [profileActive, setProfileActive] = useState(false);
+  // const [profileActive, setProfileActive] = useState(false);
 
   const activeStyle = 'text text_type_main-default';
   const inactiveStyle = 'text text_type_main-default text_color_inactive';
+
+  const isProfile = useMatch('/profile');
+  const isHome = useMatch('/');
+  const isOrders = useMatch('/profile');
 
   return (
     <header className={styles.appHeader}>
@@ -23,12 +27,10 @@ const AppHeader = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive
-                ? activeStyle && setConstructorActive(true)
-                : inactiveStyle && setConstructorActive(false)
+              isActive ? activeStyle : inactiveStyle
             }
           >
-            <BurgerIcon type={constructorActive ? 'primary' : 'secondary'} />
+            <BurgerIcon type={isHome ? 'primary' : 'secondary'} />
           </NavLink>
           <NavLink
             to="/"
@@ -72,12 +74,10 @@ const AppHeader = () => {
           <NavLink
             to="/profile"
             className={({ isActive }) =>
-              isActive
-                ? activeStyle && setProfileActive(true)
-                : inactiveStyle && setProfileActive(false)
+              isActive ? activeStyle : inactiveStyle
             }
           >
-            <ProfileIcon type={profileActive ? 'primary' : 'secondary'} />
+            <ProfileIcon type={isProfile ? 'primary' : 'secondary'} />
           </NavLink>
           <NavLink
             to="/profile"
