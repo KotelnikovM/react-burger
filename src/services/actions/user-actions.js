@@ -95,7 +95,7 @@ export const logout = () => {
     dispatch({
       type: LOGOUT_REQUEST,
     });
-    fetch(`${NORMA_API}/auth/logout`, {
+    fetchWithRefresh(`${NORMA_API}/auth/logout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -103,6 +103,7 @@ export const logout = () => {
       }),
     })
       .then((res) => {
+        console.log(res);
         if (res && res.success) {
           dispatch({ type: LOGOUT_REQUEST_SUCCESS });
         }

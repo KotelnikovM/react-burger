@@ -43,18 +43,18 @@ export const postOrder = async (ingredients) => {
 //   }
 // };
 
-export const getLogin = async (email, password) => {
-  try {
-    const req = await fetch(`${NORMA_API}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    return await responseCheck(req);
-  } catch (error) {
-    throw new Error('Что-то пошло не так(');
-  }
-};
+// export const getLogin = async (email, password) => {
+//   try {
+//     const req = await fetch(`${NORMA_API}/auth/login`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ email, password }),
+//     });
+//     return await responseCheck(req);
+//   } catch (error) {
+//     throw new Error('Что-то пошло не так(');
+//   }
+// };
 
 export const refreshToken = () => {
   return fetch(`${NORMA_API}/auth/token`, {

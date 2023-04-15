@@ -8,23 +8,26 @@ import {
   INGREDIENT_DETAILS_CLOSE,
   ORDER_DETAILS_CLOSE,
 } from '../../services/actions/ingredient-details-actions';
+import { useNavigate } from 'react-router-dom';
 
 const modal = document.getElementById('modal');
 
 const Modal = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleESCclose = (e) => {
       if (e.code === 'Escape') {
         dispatch({ type: INGREDIENT_DETAILS_CLOSE });
         dispatch({ type: ORDER_DETAILS_CLOSE });
+        navigate(-1);
       }
     };
     document.addEventListener('keydown', handleESCclose);
 
     return () => document.removeEventListener('keydown', handleESCclose);
-  }, [dispatch]);
+  }, [navigate, dispatch]);
 
   return createPortal(
     <>

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
   CurrencyIcon,
   Button,
@@ -18,13 +18,16 @@ import {
 import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
 import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
+import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
 
 const BurgerConstructor = () => {
+  const [isNotAuth, setIsNotAuth] = useState(false);
   const dispatch = useDispatch();
   const isOpened = useSelector(
     (state) => state.ingredientDetails.isOpenedOrderDetails
   );
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  const user = useSelector((state) => state.auth.user);
 
   const onHandleDropMains = (item) => {
     dispatch({
@@ -80,8 +83,13 @@ const BurgerConstructor = () => {
   }, [bun, ingredients]);
 
   const onClickOrder = () => {
-    dispatch({ type: ORDER_DETAILS_OPEN });
-    dispatch(getNumberOfOrder(orderIngredients));
+    if (user) {
+      setIsNotAuth(false);
+      dispatch({ type: ORDER_DETAILS_OPEN });
+      dispatch(getNumberOfOrder(orderIngredients));
+    } else {
+      setIsNotAuth(true);
+    }
   };
 
   return (
@@ -136,14 +144,17 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </div>
         <>
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            onClick={onClickOrder}
-          >
-            Оформить заказ
-          </Button>
+          {bun && ingredients.length > 0 && (
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={onClickOrder}
+            >
+              Оформить заказ
+            </Button>
+          )}
+
           {isOpened && (
             <>
               <Modal>
@@ -152,6 +163,11 @@ const BurgerConstructor = () => {
             </>
           )}
         </>
+        {isNotAuth && (
+          <Modal>
+            <NotAuthDetails />
+          </Modal>
+        )}
       </div>
     </div>
   );

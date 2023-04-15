@@ -63,7 +63,7 @@ const BurgerIngredients = () => {
 
   useEffect(() => {
     tabSwitch();
-    dispatch(getBurgerIngredients());
+    // dispatch(getBurgerIngredients());
     // return tabSwitch();
   }, [tabSwitch, dispatch]);
 

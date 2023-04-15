@@ -19,6 +19,7 @@ export const ForgotPasswordPage = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(e);
     e.preventDefault();
     dispatch(passwordForgot(email)).then(() => {
       localStorage.setItem('correctEmail', true);
@@ -35,16 +36,9 @@ export const ForgotPasswordPage = () => {
         value={email}
         onChange={onChangeEmail}
       />
-      <Link to="/reset-password">
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-          extraClass="mb-20"
-        >
-          Восстановить
-        </Button>
-      </Link>
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
+        Восстановить
+      </Button>
       <p
         className="text text_type_main-default text_color_inactive"
         style={{ marginBottom: '20px' }}

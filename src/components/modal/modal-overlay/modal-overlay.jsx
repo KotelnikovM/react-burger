@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   INGREDIENT_DETAILS_CLOSE,
   ORDER_DETAILS_CLOSE,
@@ -7,16 +8,15 @@ import styles from './modal-overlay.module.css';
 
 const ModalOverlay = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  return (
-    <div
-      className={styles.active}
-      onClick={() => {
-        dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-        dispatch({ type: ORDER_DETAILS_CLOSE });
-      }}
-    ></div>
-  );
+  const handleCloseModal = () => {
+    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
+
+  return <div className={styles.active} onClick={handleCloseModal}></div>;
 };
 
 export default ModalOverlay;

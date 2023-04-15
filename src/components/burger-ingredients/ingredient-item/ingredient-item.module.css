@@ -4,12 +4,20 @@
   max-width: 270px;
   width: 100%;
   display: flex;
+  /* flex-wrap: wrap; */
   flex-direction: column;
   justify-content: center;
   margin-right: 24px;
   margin-bottom: 32px;
   text-align: center;
   cursor: pointer;
+}
+
+.link {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .itemIsDrag {

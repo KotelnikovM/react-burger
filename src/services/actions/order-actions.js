@@ -3,6 +3,7 @@ import { postOrder } from '../../utils/norma-api';
 export const ORDER_REQUEST = 'ORDER_REQUEST';
 export const ORDER_SUCCESS = 'ORDER_SUCCESS';
 export const ORDER_FAILED = 'ORDER_FAILED';
+export const ORDER_DETAILS_CLOSE = 'ORDER_DETAILS_CLOSE';
 
 export const getNumberOfOrder = (orderIngredient) => {
   return (dispatch) => {

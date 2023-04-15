@@ -29,54 +29,52 @@ export const RegistrationPage = () => {
   };
 
   return (
-    <section className={styles.registerWindow}>
-      <form onSubmit={handleSubmit}>
-        <h2 className="mb-6">Регистрация</h2>
-        <Input
-          extraClass="mb-6"
-          name="name"
-          placeholder="Имя"
-          type="text"
-          value={form.name}
-          onChange={onChange}
-        />
-        <EmailInput
-          extraClass="mb-6"
-          placeholder={'E-mail'}
-          value={form.email}
-          name="email"
-          onChange={onChange}
-        />
-        <PasswordInput
-          extraClass="mb-6"
-          placeholder={'Пароль'}
-          icon={'ShowIcon'}
-          value={form.password}
-          onChange={onChange}
-          name="password"
-        />
-        <Button
-          htmlType="button"
-          type="primary"
-          size="medium"
-          extraClass="mb-20"
-          onClick={() => {
-            dispatch(registerAction(form.email, form.password, form.name));
-          }}
-        >
-          Зарегистрироваться
-        </Button>
-        <p
-          className="text text_type_main-default text_color_inactive"
-          style={{ marginBottom: '20px' }}
-        >
-          Уже зарегистрированы?&nbsp;{' '}
-          <Link className={styles.link} to="/login">
-            {' '}
-            Войти
-          </Link>
-        </p>
-      </form>
-    </section>
+    <form onSubmit={handleSubmit} className={styles.registerWindow}>
+      <h2 className="mb-6">Регистрация</h2>
+      <Input
+        extraClass="mb-6"
+        name="name"
+        placeholder="Имя"
+        type="text"
+        value={form.name}
+        onChange={onChange}
+      />
+      <EmailInput
+        extraClass="mb-6"
+        placeholder={'E-mail'}
+        value={form.email}
+        name="email"
+        onChange={onChange}
+      />
+      <PasswordInput
+        extraClass="mb-6"
+        placeholder={'Пароль'}
+        icon={'ShowIcon'}
+        value={form.password}
+        onChange={onChange}
+        name="password"
+      />
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        extraClass="mb-20"
+        onClick={() => {
+          dispatch(registerAction(form.email, form.password, form.name));
+        }}
+      >
+        Зарегистрироваться
+      </Button>
+      <p
+        className="text text_type_main-default text_color_inactive"
+        style={{ marginBottom: '20px' }}
+      >
+        Уже зарегистрированы?&nbsp;{' '}
+        <Link className={styles.link} to="/login">
+          {' '}
+          Войти
+        </Link>
+      </p>
+    </form>
   );
 };
