@@ -20,11 +20,11 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onCloseModal = () => {
-    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-    // dispatch({ type: ORDER_DETAILS_CLOSE });
-    navigate(-1);
-  };
+  // const onCloseModal = () => {
+  //   dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+  //   // dispatch({ type: ORDER_DETAILS_CLOSE });
+  //   navigate(-1);
+  // };
 
   const Tabs = {
     BUNS: 'buns',
@@ -125,11 +125,11 @@ const BurgerIngredients = () => {
         <IngredientsGroup data={mains} />
       </div>
 
-      {isOpened && (
+      {/* {isOpened && (
         <Modal onCloseModal={onCloseModal}>
           <IngredientDetails />
         </Modal>
-      )}
+      )} */}
     </section>
   );
 };

@@ -35,7 +35,7 @@ const IngredientDetails = () => {
     <div className={styles.ingredientDetails}>
       <div className={styles.ingredientDetailsHead}>
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
-        <CloseIcon onClick={closeModal} type="primary" />
+        {/* <CloseIcon onClick={closeModal} type="primary" /> */}
       </div>
       <img className="mb-4" src={image_large} alt={name} />
       <p className="mb-8 text text_type_main-medium">{name}</p>

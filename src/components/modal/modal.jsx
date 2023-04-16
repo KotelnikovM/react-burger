@@ -14,17 +14,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 const modal = document.getElementById('modal');
 
 const Modal = ({ children, onCloseModal }) => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // const handleCloseModal = () => {
-  //   dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-  //   // dispatch({ type: ORDER_DETAILS_CLOSE });
-  //   navigate(-1);
-  // };
-
-  console.log(typeof onCloseModal);
-
   useEffect(() => {
     const handleESCclose = (e) => {
       if (e.code === 'Escape') {
@@ -45,7 +34,13 @@ const Modal = ({ children, onCloseModal }) => {
         // }}
       >
         {children}
-        <CloseIcon onClick={onCloseModal} type="primary" />
+        <div className={styles.closeIcon}>
+          <CloseIcon
+            onClick={onCloseModal}
+            type="primary"
+            className={styles.closeIcon}
+          />
+        </div>
       </div>
       <ModalOverlay onCloseModal={onCloseModal} />
     </>,

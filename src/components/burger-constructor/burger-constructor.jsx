@@ -8,7 +8,10 @@ import '../../index.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ORDER_DETAILS_OPEN } from '../../services/actions/ingredient-details-actions';
+import {
+  ORDER_DETAILS_CLOSE,
+  ORDER_DETAILS_OPEN,
+} from '../../services/actions/ingredient-details-actions';
 import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
 import { useDrop } from 'react-dnd';
 import {
@@ -19,6 +22,7 @@ import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
 import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
 import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
   const [isNotAuth, setIsNotAuth] = useState(false);
@@ -28,6 +32,8 @@ const BurgerConstructor = () => {
   );
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
   const user = useSelector((state) => state.auth.user);
+
+  const navigate = useNavigate();
 
   const onHandleDropMains = (item) => {
     dispatch({
@@ -40,6 +46,10 @@ const BurgerConstructor = () => {
     });
   };
 
+  const onCloseModal = () => {
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
   const [, dropMains] = useDrop({
     accept: ['main', 'sauce'],
     drop(item) {
@@ -157,7 +167,7 @@ const BurgerConstructor = () => {
 
           {isOpened && (
             <>
-              <Modal>
+              <Modal onCloseModal={onCloseModal}>
                 <OrderDetails />
               </Modal>
             </>

@@ -11,9 +11,6 @@ const OrderDetails = () => {
 
   return (
     <div className={styles.orderDetailsContainer}>
-      <div className={styles.closeIcon}>
-        <CloseIcon onClick={() => dispatch({ type: ORDER_DETAILS_CLOSE })} />
-      </div>
       <p className="mb-4 text text_type_digits-large">{number}</p>
       <p className="mb-15 text text_type_main-default">идентификатор заказа</p>
       <img className="mb-15" src={img} alt="done" />

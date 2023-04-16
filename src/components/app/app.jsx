@@ -1,6 +1,6 @@
 import AppHeader from '../app-header/app-header';
 import styles from './app.module.css';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage } from '../../pages/home';
 import { LoginPage } from '../../pages/registration/login';
 import { RegistrationPage } from '../../pages/registration/registration';
@@ -15,12 +15,23 @@ import { getBurgerIngredients } from '../../services/actions/burger-ingredients-
 import OrderPage from '../../pages/profile/orders/order';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
+import {
+  INGREDIENT_DETAILS_CLOSE,
+  ORDER_DETAILS_CLOSE,
+} from '../../services/actions/ingredient-details-actions';
 
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const background = location.state && location.state.background;
+
+  const onCloseModal = () => {
+    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
@@ -36,7 +47,7 @@ const App = () => {
           path="/ingredients/:id"
           element={<IngredientDetails newPage />}
         />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage onCloseModal={onCloseModal} />} />
         <Route
           path="/profile/orders"
           element={<OnlyUnAuth component={<OrderPage />} />}
@@ -68,7 +79,7 @@ const App = () => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal>
+              <Modal onCloseModal={onCloseModal}>
                 <IngredientDetails newPage />
               </Modal>
             }
