@@ -14,8 +14,6 @@ const IngredientDetails = () => {
     (state) => state.burgerIngredient.ingredients
   );
 
-  console.log(ingredients);
-
   const ingredient = ingredients.find((it) => it._id === id);
 
   const closeModal = () => {

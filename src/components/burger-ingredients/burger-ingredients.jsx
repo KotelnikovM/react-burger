@@ -7,6 +7,8 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
+import { INGREDIENT_DETAILS_CLOSE } from '../../services/actions/ingredient-details-actions';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerIngredients = () => {
   const isOpened = useSelector(
@@ -16,6 +18,13 @@ const BurgerIngredients = () => {
   const data = useSelector((state) => state.burgerIngredient.ingredients);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onCloseModal = () => {
+    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    // dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
 
   const Tabs = {
     BUNS: 'buns',
@@ -117,7 +126,7 @@ const BurgerIngredients = () => {
       </div>
 
       {isOpened && (
-        <Modal>
+        <Modal onCloseModal={onCloseModal}>
           <IngredientDetails />
         </Modal>
       )}

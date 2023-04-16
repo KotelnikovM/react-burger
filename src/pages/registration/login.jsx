@@ -48,13 +48,7 @@ export const LoginPage = () => {
         value={form.password}
         onChange={onChange}
       />
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        extraClass="mb-20"
-        onClick={handleSubmit}
-      >
+      <Button htmlType="sumbit" type="primary" size="medium" extraClass="mb-20">
         Войти
       </Button>
       <p

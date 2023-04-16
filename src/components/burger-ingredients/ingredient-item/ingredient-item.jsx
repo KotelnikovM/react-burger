@@ -20,7 +20,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 const IngredientItem = ({ ...item }) => {
   const ID = uuid();
-  const itemId = item._id;
 
   const location = useLocation();
 
@@ -41,31 +40,6 @@ const IngredientItem = ({ ...item }) => {
         ...item,
       },
     });
-
-    typeOfIngredient === 'bun'
-      ? dispatch({
-          type: UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
-          payload: {
-            ID,
-            ...item,
-          },
-          isBun: true,
-        }) &&
-        dispatch({
-          type: UPDATE_BUN_COUNT,
-          payload: { itemId },
-        })
-      : dispatch({
-          type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-          payload: {
-            ID,
-            ...item,
-          },
-        }) &&
-        dispatch({
-          type: INCREMENT_BURGER_INGREDIENT_COUNT,
-          payload: { itemId },
-        });
   };
 
   return (

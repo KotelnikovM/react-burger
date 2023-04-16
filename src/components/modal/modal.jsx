@@ -9,37 +9,45 @@ import {
   ORDER_DETAILS_CLOSE,
 } from '../../services/actions/ingredient-details-actions';
 import { useNavigate } from 'react-router-dom';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modal = document.getElementById('modal');
 
-const Modal = ({ children }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const Modal = ({ children, onCloseModal }) => {
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
+  // const handleCloseModal = () => {
+  //   dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+  //   // dispatch({ type: ORDER_DETAILS_CLOSE });
+  //   navigate(-1);
+  // };
+
+  console.log(typeof onCloseModal);
 
   useEffect(() => {
     const handleESCclose = (e) => {
       if (e.code === 'Escape') {
-        dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-        dispatch({ type: ORDER_DETAILS_CLOSE });
-        navigate(-1);
+        return onCloseModal();
       }
     };
     document.addEventListener('keydown', handleESCclose);
 
     return () => document.removeEventListener('keydown', handleESCclose);
-  }, [navigate, dispatch]);
+  }, [onCloseModal]);
 
   return createPortal(
     <>
       <div
         className={styles.modal__content__active}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        // onClick={(e) => {
+        //   e.stopPropagation();
+        // }}
       >
         {children}
+        <CloseIcon onClick={onCloseModal} type="primary" />
       </div>
-      <ModalOverlay />
+      <ModalOverlay onCloseModal={onCloseModal} />
     </>,
 
     modal

@@ -22,7 +22,6 @@ const App = () => {
 
   const background = location.state && location.state.background;
 
-  console.log(location.state);
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
