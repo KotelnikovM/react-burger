@@ -3,28 +3,12 @@ import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
-import Modal from '../modal/modal';
-import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
-import { INGREDIENT_DETAILS_CLOSE } from '../../services/actions/ingredient-details-actions';
-import { useNavigate } from 'react-router-dom';
 
 const BurgerIngredients = () => {
-  const isOpened = useSelector(
-    (state) => state.ingredientDetails.isOpenedIngredientDetails
-  );
-
   const data = useSelector((state) => state.burgerIngredient.ingredients);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // const onCloseModal = () => {
-  //   dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-  //   // dispatch({ type: ORDER_DETAILS_CLOSE });
-  //   navigate(-1);
-  // };
 
   const Tabs = {
     BUNS: 'buns',
@@ -72,8 +56,6 @@ const BurgerIngredients = () => {
 
   useEffect(() => {
     tabSwitch();
-    // dispatch(getBurgerIngredients());
-    // return tabSwitch();
   }, [tabSwitch, dispatch]);
 
   return (
@@ -124,12 +106,6 @@ const BurgerIngredients = () => {
         </p>
         <IngredientsGroup data={mains} />
       </div>
-
-      {/* {isOpened && (
-        <Modal onCloseModal={onCloseModal}>
-          <IngredientDetails />
-        </Modal>
-      )} */}
     </section>
   );
 };

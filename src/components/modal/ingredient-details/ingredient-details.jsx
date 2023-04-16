@@ -1,13 +1,9 @@
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { INGREDIENT_DETAILS_CLOSE } from '../../../services/actions/ingredient-details-actions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {} from '../../../services/actions/burger-constructor-actions';
 
 const IngredientDetails = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const ingredients = useSelector(
@@ -15,11 +11,6 @@ const IngredientDetails = () => {
   );
 
   const ingredient = ingredients.find((it) => it._id === id);
-
-  const closeModal = () => {
-    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-    navigate(-1);
-  };
 
   const { image_large, name, calories, proteins, fat, carbohydrates } =
     ingredient || {
@@ -35,7 +26,6 @@ const IngredientDetails = () => {
     <div className={styles.ingredientDetails}>
       <div className={styles.ingredientDetailsHead}>
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
-        {/* <CloseIcon onClick={closeModal} type="primary" /> */}
       </div>
       <img className="mb-4" src={image_large} alt={name} />
       <p className="mb-8 text text_type_main-medium">{name}</p>

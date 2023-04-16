@@ -7,15 +7,7 @@ import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { INGREDIENT_DETAILS_OPEN } from '../../../services/actions/ingredient-details-actions';
-import {
-  ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-  UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
-} from '../../../services/actions/burger-constructor-actions';
 import { useDrag } from 'react-dnd/dist/hooks';
-import {
-  INCREMENT_BURGER_INGREDIENT_COUNT,
-  UPDATE_BUN_COUNT,
-} from '../../../services/actions/burger-ingredients-actions';
 import { Link, useLocation } from 'react-router-dom';
 
 const IngredientItem = ({ ...item }) => {
