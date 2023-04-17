@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
   CurrencyIcon,
   Button,
@@ -8,23 +8,32 @@ import '../../index.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { ORDER_DETAILS_OPEN } from '../../services/actions/ingredient-details-actions';
+import {
+  ORDER_DETAILS_CLOSE,
+  ORDER_DETAILS_OPEN,
+} from '../../services/actions/ingredient-details-actions';
 import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-  UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
+  updateIngredients,
 } from '../../services/actions/burger-constructor-actions';
 import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
 import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
+import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
+  const [isNotAuth, setIsNotAuth] = useState(false);
   const dispatch = useDispatch();
   const isOpened = useSelector(
     (state) => state.ingredientDetails.isOpenedOrderDetails
   );
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  const user = useSelector((state) => state.auth.user);
+
+  const navigate = useNavigate();
 
   const onHandleDropMains = (item) => {
     dispatch({
@@ -37,6 +46,10 @@ const BurgerConstructor = () => {
     });
   };
 
+  const onCloseModal = () => {
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
   const [, dropMains] = useDrop({
     accept: ['main', 'sauce'],
     drop(item) {
@@ -51,19 +64,16 @@ const BurgerConstructor = () => {
       newIngredients.splice(dragIndex, 1);
       newIngredients.splice(hoverIndex, 0, dragIngredient);
 
-      dispatch({
-        type: UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
-        payload: newIngredients,
-      });
+      dispatch(updateIngredients(newIngredients));
     },
     [dispatch, ingredients]
   );
 
   const totalPrice = useMemo(() => {
-    let price =
+    return (
       ingredients.reduce((acc, item) => acc + item.price, 0) +
-      Number(bun ? bun?.price : 0) * 2;
-    return price;
+      Number(bun ? bun?.price : 0) * 2
+    );
   }, [ingredients, bun]);
 
   const orderIngredients = useMemo(() => {
@@ -83,8 +93,13 @@ const BurgerConstructor = () => {
   }, [bun, ingredients]);
 
   const onClickOrder = () => {
-    dispatch({ type: ORDER_DETAILS_OPEN });
-    dispatch(getNumberOfOrder(orderIngredients));
+    if (user) {
+      setIsNotAuth(false);
+      dispatch({ type: ORDER_DETAILS_OPEN });
+      dispatch(getNumberOfOrder(orderIngredients));
+    } else {
+      setIsNotAuth(true);
+    }
   };
 
   return (
@@ -139,22 +154,30 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </div>
         <>
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            onClick={onClickOrder}
-          >
-            Оформить заказ
-          </Button>
+          {bun && ingredients.length > 0 && (
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={onClickOrder}
+            >
+              Оформить заказ
+            </Button>
+          )}
+
           {isOpened && (
             <>
-              <Modal>
+              <Modal onCloseModal={onCloseModal}>
                 <OrderDetails />
               </Modal>
             </>
           )}
         </>
+        {isNotAuth && (
+          <Modal>
+            <NotAuthDetails />
+          </Modal>
+        )}
       </div>
     </div>
   );

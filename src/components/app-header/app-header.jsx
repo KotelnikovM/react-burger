@@ -4,44 +4,81 @@ import {
   BurgerIcon,
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, NavLink, useMatch } from 'react-router-dom';
 import styles from './app-header.module.css';
 
 const AppHeader = () => {
+  const activeStyle = 'text text_type_main-default';
+  const inactiveStyle = 'text text_type_main-default text_color_inactive';
+
+  const isProfile = !!useMatch('/profile');
+  const isHome = !!useMatch('/');
+  const isOrders = !!useMatch('/profile/orders');
+
   return (
     <header className={styles.appHeader}>
-      <div className={styles.container}>
-        <div className={styles.burgerConstructorTab}>
-          <a href="#">
-            <BurgerIcon type="primary" />
-          </a>
-          <a href="#">
-            <p className="text text_type_main-default">Конструктор</p>
-          </a>
-        </div>
-        <div className={styles.orderFeedTab}>
-          <a href="#">
-            <ListIcon type="secondary" />
-          </a>
-          <a href="#">
-            <p className="text text_type_main-default text_color_inactive">
-              Лента заказов
-            </p>
-          </a>
-        </div>
-        <a href="#" className={styles.logoTab}>
-          <Logo />
-        </a>
-        <div className={styles.personalAreaTab}>
-          <a href="#">
-            <ProfileIcon type="secondary" />
-          </a>
-          <a href="#">
-            <p className="text text_type_main-default text_color_inactive">
-              Личный кабинет
-            </p>
-          </a>
-        </div>
-      </div>
+      <ul className={styles.container}>
+        <li className={styles.burgerConstructorTab}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? activeStyle : inactiveStyle
+            }
+          >
+            <BurgerIcon type={isHome ? 'primary' : 'secondary'} />
+          </NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? 'text text_type_main-default'
+                : 'text text_type_main-default text_color_inactive'
+            }
+          >
+            <p>Конструктор</p>
+          </NavLink>
+        </li>
+        <li className={styles.orderFeedTab}>
+          <NavLink to="/profile/orders">
+            <ListIcon type={isOrders ? 'primary' : 'secondary'} />
+          </NavLink>
+          <NavLink
+            to="/profile/orders"
+            className={({ isActive }) =>
+              isActive
+                ? 'text text_type_main-default'
+                : 'text text_type_main-default text_color_inactive'
+            }
+          >
+            <p>Лента заказов</p>
+          </NavLink>
+        </li>
+        <li className={styles.logoTab}>
+          <Link to="/">
+            <Logo />
+          </Link>
+        </li>
+        <li className={styles.personalAreaTab}>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? activeStyle : inactiveStyle
+            }
+          >
+            <ProfileIcon type={isProfile ? 'primary' : 'secondary'} />
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive
+                ? 'text text_type_main-default'
+                : 'text text_type_main-default text_color_inactive'
+            }
+          >
+            <p>Личный кабинет</p>
+          </NavLink>
+        </li>
+      </ul>
     </header>
   );
 };

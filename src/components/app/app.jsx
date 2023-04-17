@@ -1,40 +1,90 @@
-import { useEffect } from 'react';
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import styles from './app.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HomePage } from '../../pages/home';
+import { LoginPage } from '../../pages/registration/login';
+import { RegistrationPage } from '../../pages/registration/registration';
+import { ForgotPasswordPage } from '../../pages/registration/forgot-password';
+import { ResetPasswordPage } from '../../pages/registration/reset-password';
+import { ProfilePage } from '../../pages/profile/profile';
+import { OnlyAuth, OnlyUnAuth } from '../protected-route';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { checkUserAuth } from '../../services/actions/user-actions';
 import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import OrderPage from '../../pages/profile/orders/order';
+import Modal from '../modal/modal';
+import IngredientDetails from '../modal/ingredient-details/ingredient-details';
+import {
+  INGREDIENT_DETAILS_CLOSE,
+  ORDER_DETAILS_CLOSE,
+} from '../../services/actions/ingredient-details-actions';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((state) => state.burgerIngredient);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const background = location.state && location.state.background;
+
+  const onCloseModal = () => {
+    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      {ingredients.length ? (
-        <main className={styles.main}>
-          <h1 className="mt-10 mb-5 text text_type_main-large">
-            Соберите бургер
-          </h1>
-          <div className={styles.ingredientsAndConstructor}>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
-          </div>
-        </main>
-      ) : (
-        <p className={`text text_type_main-large ${styles.mainP}`}>
-          Упс... что-то пошло не так. Космолет с космобургерами не долетел ;(
-        </p>
+
+      <Routes location={background || location}>
+        <Route
+          path="/ingredients/:id"
+          element={<IngredientDetails newPage />}
+        />
+        <Route path="/" element={<HomePage onCloseModal={onCloseModal} />} />
+        <Route
+          path="/profile/orders"
+          element={<OnlyUnAuth component={<OrderPage />} />}
+        />
+        <Route
+          path="/login"
+          element={<OnlyUnAuth component={<LoginPage />} />}
+        />
+        <Route
+          path="/registration"
+          element={<OnlyUnAuth component={<RegistrationPage />} />}
+        />
+        <Route
+          path="/forgot-password"
+          element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+        />
+        <Route
+          path="/reset-password"
+          element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+        />
+        <Route
+          path="/profile"
+          element={<OnlyAuth component={<ProfilePage />} />}
+        />
+        <Route path="*" element={<HomePage />} />
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal onCloseModal={onCloseModal}>
+                <IngredientDetails newPage />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
     </div>
   );
