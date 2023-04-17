@@ -28,8 +28,8 @@ const App = () => {
   const background = location.state && location.state.background;
 
   const onCloseModal = () => {
-    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-    dispatch({ type: ORDER_DETAILS_CLOSE });
+    // dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    // dispatch({ type: ORDER_DETAILS_CLOSE });
     navigate(-1);
   };
 

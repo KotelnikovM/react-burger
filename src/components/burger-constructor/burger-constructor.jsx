@@ -125,7 +125,7 @@ const BurgerConstructor = () => {
             )}
           </div>
         ) : (
-          <div ref={dropMains} className={`ml-6 `}>
+          <div ref={dropMains} className={'ml-6'}>
             <div
               style={{
                 width: '536px',
