@@ -17,6 +17,7 @@ type BurgerConstructorItemProps = {
   name: string;
   ID: string;
   index: number;
+  moveIngredients: (dragIndex: number, hoverIndex: number) => void;
 };
 
 type TIngredientDragType = {
@@ -35,9 +36,8 @@ export const BurgerConstructorItem = ({
   name,
   ID,
   index,
-  //@ts-ignore
   moveIngredients,
-}: BurgerConstructorItemProps) => {
+}: BurgerConstructorItemProps): JSX.Element => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement | null>(null);
 

@@ -2,7 +2,8 @@ import styles from './order-details.module.css';
 import img from '../../../images/graphics.svg';
 import { useSelector } from 'react-redux';
 
-const OrderDetails = () => {
+const OrderDetails = (): JSX.Element => {
+  //@ts-ignore
   const { number } = useSelector((state) => state.order);
 
   return (

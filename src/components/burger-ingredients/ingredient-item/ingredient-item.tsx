@@ -9,8 +9,9 @@ import { v4 as uuid } from 'uuid';
 import { INGREDIENT_DETAILS_OPEN } from '../../../services/actions/ingredient-details-actions';
 import { useDrag } from 'react-dnd/dist/hooks';
 import { Link, useLocation } from 'react-router-dom';
+import { IIngredient } from '../../../utils/types';
 
-const IngredientItem = ({ ...item }) => {
+const IngredientItem = ({ ...item }: IIngredient): JSX.Element => {
   const ID = uuid();
 
   const location = useLocation();
@@ -25,7 +26,7 @@ const IngredientItem = ({ ...item }) => {
 
   const dispatch = useDispatch();
 
-  const open = (typeOfIngredient) => {
+  const open = () => {
     dispatch({
       type: INGREDIENT_DETAILS_OPEN,
       payload: {
@@ -39,6 +40,7 @@ const IngredientItem = ({ ...item }) => {
       <div
         className={!isDrag ? styles.item : styles.itemIsDrag}
         onClick={() => {
+          //@ts-ignore
           open(item.type);
         }}
         ref={dragRef}
@@ -58,10 +60,9 @@ const IngredientItem = ({ ...item }) => {
           <p className="text text_type_main-default">{item.name}</p>
           {item.count ? (
             <Counter
-              className={styles.counter}
               count={item.count}
               size="default"
-              extraClass="m-1"
+              extraClass={`${styles.counter} m-1`}
             />
           ) : null}
         </Link>

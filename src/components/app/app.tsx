@@ -16,14 +16,14 @@ import OrderPage from '../../pages/profile/orders/order';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 
-const App = () => {
+const App = (): JSX.Element => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
   const background = location.state && location.state.background;
 
-  const onCloseModal = () => {
+  const onCloseModal = (): void => {
     navigate(-1);
   };
 
@@ -43,19 +43,10 @@ const App = () => {
           path="/ingredients/:id"
           // @ts-ignore
 
-          element={<IngredientDetails newPage />}
+          element={<IngredientDetails />}
         />
 
-        <Route
-          path="/"
-          element={
-            <HomePage
-              // @ts-ignore
-
-              onCloseModal={onCloseModal}
-            />
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/profile/orders"
           element={<OnlyUnAuth component={<OrderPage />} />}

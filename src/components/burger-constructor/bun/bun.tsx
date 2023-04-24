@@ -7,11 +7,18 @@ import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/actions/burg
 import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-actions';
 import styles from './bun.module.css';
 import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
+import { IIngredient } from '../../../utils/types';
 
-const Bun = ({ bun, coordinate, position }) => {
+type TBunProps = {
+  bun: IIngredient | null;
+  coordinate: 'top' | 'bottom' | undefined;
+  position: string;
+};
+
+const Bun = ({ bun, coordinate, position }: TBunProps): JSX.Element => {
   const dispatch = useDispatch();
 
-  const onHandleDropBuns = (item) => {
+  const onHandleDropBuns = (item: IIngredient): void => {
     dispatch({
       type: UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
       isBun: true,
@@ -25,10 +32,10 @@ const Bun = ({ bun, coordinate, position }) => {
     });
   };
 
-  const [, dropBuns] = useDrop({
+  const [, dropBuns] = useDrop<IIngredient>({
     accept: 'bun',
     drop(item) {
-      onHandleDropBuns(item);
+      onHandleDropBuns(item as IIngredient);
     },
   });
 

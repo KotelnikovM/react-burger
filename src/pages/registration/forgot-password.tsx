@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import {
   EmailInput,
@@ -9,19 +9,21 @@ import styles from './forgot-password.module.css';
 import { useDispatch } from 'react-redux';
 import { passwordForgot } from '../../services/actions/user-actions';
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    console.log(e);
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(passwordForgot(email)).then(() => {
+      //@ts-ignore
+
       localStorage.setItem('correctEmail', true);
       navigate('/reset-password');
     });

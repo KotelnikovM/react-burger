@@ -4,13 +4,13 @@ import {
   Button,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerAction } from '../../services/actions/register-actions';
 import styles from './registration.module.css';
 
-export const RegistrationPage = () => {
+export const RegistrationPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({
@@ -19,12 +19,14 @@ export const RegistrationPage = () => {
     password: '',
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    //@ts-ignore
+
     dispatch(registerAction(form.email, form.password, form.name));
   };
 
@@ -60,6 +62,8 @@ export const RegistrationPage = () => {
         size="medium"
         extraClass="mb-20"
         onClick={() => {
+          //@ts-ignore
+
           dispatch(registerAction(form.email, form.password, form.name));
         }}
       >

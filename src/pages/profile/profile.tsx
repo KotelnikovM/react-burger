@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   Button,
   EmailInput,
@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout, patchUser } from '../../services/actions/user-actions';
 import { useEffect } from 'react';
 
-export const ProfilePage = () => {
+export const ProfilePage = (): JSX.Element => {
   const dispatch = useDispatch();
+  //@ts-ignore
   const user = useSelector((state) => state.auth.user);
   const [form, setForm] = useState({
     name: '',
@@ -36,7 +37,7 @@ export const ProfilePage = () => {
     });
   };
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -63,6 +64,7 @@ export const ProfilePage = () => {
                 className={styles.link}
                 to={'/login'}
                 onClick={() => {
+                  //@ts-ignore
                   dispatch(logout());
                 }}
               >
@@ -118,6 +120,8 @@ export const ProfilePage = () => {
               type="primary"
               size="medium"
               onClick={() =>
+                //@ts-ignore
+
                 dispatch(patchUser(form.email, form.password, form.name))
               }
             >

@@ -1,20 +1,21 @@
-import PropTypes from 'prop-types';
 import styles from './ingredient-group.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
-import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
+import { IIngredient } from '../../../utils/types';
 
-const IngredientsGroup = ({ data }) => {
+type TIngredientGroupProps = {
+  data: IIngredient[];
+};
+
+const IngredientsGroup = ({ data }: TIngredientGroupProps): JSX.Element => {
+  console.log(data);
+
   return (
     <div className={styles.box}>
-      {data?.map((item) => {
+      {data?.map((item: IIngredient) => {
         return <IngredientItem key={item._id} {...item} />;
       })}
     </div>
   );
-};
-
-IngredientsGroup.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default IngredientsGroup;
