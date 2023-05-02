@@ -14,10 +14,7 @@ import {
 } from '../../services/actions/ingredient-details-actions';
 import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
 import { useDrop } from 'react-dnd';
-import {
-  ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-  updateIngredients,
-} from '../../services/actions/burger-constructor-actions';
+import { updateIngredients } from '../../services/actions/burger-constructor-actions';
 import Bun from './bun/bun';
 import { getNumberOfOrder } from '../../services/actions/order-actions';
 import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
@@ -25,6 +22,7 @@ import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../utils/types';
 import { v4 as uuid } from 'uuid';
+import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from '../../services/constants/burger-constructor';
 
 const BurgerConstructor = (): JSX.Element => {
   const [isNotAuth, setIsNotAuth] = useState(false);

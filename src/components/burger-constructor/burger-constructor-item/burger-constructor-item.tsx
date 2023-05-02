@@ -4,11 +4,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useDispatch } from 'react-redux';
-import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
 import styles from './burger-constructor-item.module.css';
 import { useDrop, useDrag } from 'react-dnd';
 import { useRef } from 'react';
 import { DECREMENT_BURGER_INGREDIENT_COUNT } from '../../../services/actions/burger-ingredients-actions';
+import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor';
 
 type BurgerConstructorItemProps = {
   itemId: string;

@@ -50,14 +50,7 @@ export const LoginPage = (): JSX.Element => {
         value={form.password}
         onChange={onChange}
       />
-      <Button
-        //@ts-ignore
-
-        htmlType="sumbit"
-        type="primary"
-        size="medium"
-        extraClass="mb-20"
-      >
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
         Войти
       </Button>
       <p
