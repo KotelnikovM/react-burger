@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import {
   PasswordInput,
@@ -10,7 +10,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { passwordReset } from '../../services/actions/user-actions';
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,12 +19,14 @@ export const ResetPasswordPage = () => {
     token: '',
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    //@ts-ignore
+
     dispatch(passwordReset(form.password, form.token)).then(() => {
       localStorage.removeItem('correctEmail');
       navigate('/login');

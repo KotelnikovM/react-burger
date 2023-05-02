@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrderPage = () => {
+const OrderPage = (): JSX.Element => {
   return <section>Упс, эта страница еще до нас не долетела(</section>;
 };
 

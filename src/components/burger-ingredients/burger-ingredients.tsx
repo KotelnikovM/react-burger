@@ -1,11 +1,19 @@
-import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import React, {
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { IIngredient } from '../../utils/types';
 
-const BurgerIngredients = () => {
+const BurgerIngredients = (): JSX.Element => {
+  //@ts-ignore
   const data = useSelector((state) => state.burgerIngredient.ingredients);
 
   const dispatch = useDispatch();
@@ -19,31 +27,37 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState(Tabs.BUNS);
 
   const buns = useMemo(
-    () => data.filter((item) => item.type === 'bun'),
+    () => data.filter((item: IIngredient) => item.type === 'bun'),
     [data]
   );
 
   const sauses = useMemo(
-    () => data.filter((item) => item.type === 'sauce'),
+    () => data.filter((item: IIngredient) => item.type === 'sauce'),
     [data]
   );
 
   const mains = useMemo(
-    () => data.filter((item) => item.type === 'main'),
+    () => data.filter((item: IIngredient) => item.type === 'main'),
     [data]
   );
 
-  const tabsRef = useRef();
-  const bunsRef = useRef();
-  const sausesRef = useRef();
-  const mainsRef = useRef();
+  const tabsRef = useRef<HTMLHeadingElement>(null);
+  const bunsRef = useRef<HTMLHeadingElement>(null);
+  const sausesRef = useRef<HTMLHeadingElement>(null);
+  const mainsRef = useRef<HTMLHeadingElement>(null);
 
   const tabSwitch = useCallback(() => {
-    const calculationDifferences = (ref) =>
-      Math.abs(
-        tabsRef.current.getBoundingClientRect().bottom -
-          ref.current.getBoundingClientRect().top
-      );
+    const calculationDifferences = (
+      ref: React.RefObject<HTMLHeadElement>
+    ): number => {
+      if (tabsRef.current && ref.current) {
+        Math.abs(
+          tabsRef.current.getBoundingClientRect().bottom -
+            ref.current.getBoundingClientRect().top
+        );
+      }
+      return 0;
+    };
 
     if (calculationDifferences(bunsRef) <= 105) {
       setCurrent(Tabs.BUNS);
@@ -58,6 +72,16 @@ const BurgerIngredients = () => {
     tabSwitch();
   }, [tabSwitch, dispatch]);
 
+  const onClickTab = (
+    tabName: string,
+    ref: React.RefObject<HTMLHeadingElement>
+  ): void => {
+    setCurrent(tabName);
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className={styles.burgerIngredients}>
       <div className={styles.burgerIngredientsTabs} ref={tabsRef}>
@@ -65,8 +89,7 @@ const BurgerIngredients = () => {
           value="buns"
           active={current === 'buns'}
           onClick={() => {
-            setCurrent(Tabs.BUNS);
-            bunsRef.current.scrollIntoView({ behavior: 'smooth' });
+            onClickTab(Tabs.BUNS, bunsRef);
           }}
         >
           Булки
@@ -75,8 +98,7 @@ const BurgerIngredients = () => {
           value="sauces"
           active={current === 'sauces'}
           onClick={() => {
-            setCurrent(Tabs.SAUCES);
-            sausesRef.current.scrollIntoView({ behavior: 'smooth' });
+            onClickTab(Tabs.SAUCES, sausesRef);
           }}
         >
           Соусы
@@ -85,8 +107,7 @@ const BurgerIngredients = () => {
           value="mains"
           active={current === 'mains'}
           onClick={() => {
-            setCurrent(Tabs.MAINS);
-            mainsRef.current.scrollIntoView({ behavior: 'smooth' });
+            onClickTab(Tabs.MAINS, mainsRef);
           }}
         >
           Начинки

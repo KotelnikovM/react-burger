@@ -23,19 +23,26 @@ import { getNumberOfOrder } from '../../services/actions/order-actions';
 import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
 import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
 import { useNavigate } from 'react-router-dom';
+import { IIngredient } from '../../utils/types';
+import { v4 as uuid } from 'uuid';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (): JSX.Element => {
   const [isNotAuth, setIsNotAuth] = useState(false);
   const dispatch = useDispatch();
   const isOpened = useSelector(
+    //@ts-ignore
     (state) => state.ingredientDetails.isOpenedOrderDetails
   );
+  //@ts-ignore
+
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  //@ts-ignore
+
   const user = useSelector((state) => state.auth.user);
 
   const navigate = useNavigate();
 
-  const onHandleDropMains = (item) => {
+  const onHandleDropMains = (item: IIngredient): void => {
     dispatch({
       type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
       payload: { ...item },
@@ -50,7 +57,7 @@ const BurgerConstructor = () => {
     dispatch({ type: ORDER_DETAILS_CLOSE });
     navigate(-1);
   };
-  const [, dropMains] = useDrop({
+  const [, dropMains] = useDrop<IIngredient>({
     accept: ['main', 'sauce'],
     drop(item) {
       onHandleDropMains(item);
@@ -58,7 +65,7 @@ const BurgerConstructor = () => {
   });
 
   const moveIngredients = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragIngredient = ingredients[dragIndex];
       const newIngredients = [...ingredients];
       newIngredients.splice(dragIndex, 1);
@@ -71,7 +78,10 @@ const BurgerConstructor = () => {
 
   const totalPrice = useMemo(() => {
     return (
-      ingredients.reduce((acc, item) => acc + item.price, 0) +
+      ingredients.reduce(
+        (acc: number, item: IIngredient) => acc + item.price,
+        0
+      ) +
       Number(bun ? bun?.price : 0) * 2
     );
   }, [ingredients, bun]);
@@ -84,7 +94,7 @@ const BurgerConstructor = () => {
     }
 
     if (ingredients.length) {
-      ingredients.forEach((ingredient) => {
+      ingredients.forEach((ingredient: IIngredient) => {
         orderIngredientsIds.push(ingredient._id);
       });
     }
@@ -96,6 +106,7 @@ const BurgerConstructor = () => {
     if (user) {
       setIsNotAuth(false);
       dispatch({ type: ORDER_DETAILS_OPEN });
+      //@ts-ignore
       dispatch(getNumberOfOrder(orderIngredients));
     } else {
       setIsNotAuth(true);
@@ -108,8 +119,9 @@ const BurgerConstructor = () => {
         <Bun bun={bun} coordinate="top" position="(верх)" />
         {ingredients.length > 0 ? (
           <div className={styles.fillings} ref={dropMains}>
-            {ingredients.map(
-              (ingredient, index) =>
+            {ingredients.map((ingredient: IIngredient, index: number) => {
+              ingredient.ID = uuid();
+              return (
                 ingredient.type !== 'bun' && (
                   <BurgerConstructorItem
                     key={ingredient.ID}
@@ -122,10 +134,11 @@ const BurgerConstructor = () => {
                     moveIngredients={moveIngredients}
                   />
                 )
-            )}
+              );
+            })}
           </div>
         ) : (
-          <div ref={dropMains} className={`ml-6 `}>
+          <div ref={dropMains} className={'ml-6'}>
             <div
               style={{
                 width: '536px',

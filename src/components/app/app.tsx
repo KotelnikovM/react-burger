@@ -15,26 +15,22 @@ import { getBurgerIngredients } from '../../services/actions/burger-ingredients-
 import OrderPage from '../../pages/profile/orders/order';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
-import {
-  INGREDIENT_DETAILS_CLOSE,
-  ORDER_DETAILS_CLOSE,
-} from '../../services/actions/ingredient-details-actions';
 
-const App = () => {
+const App = (): JSX.Element => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
   const background = location.state && location.state.background;
 
-  const onCloseModal = () => {
-    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
-    dispatch({ type: ORDER_DETAILS_CLOSE });
+  const onCloseModal = (): void => {
     navigate(-1);
   };
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(getBurgerIngredients());
+    // @ts-ignore
     dispatch(checkUserAuth());
   }, [dispatch]);
 
@@ -45,9 +41,12 @@ const App = () => {
       <Routes location={background || location}>
         <Route
           path="/ingredients/:id"
-          element={<IngredientDetails newPage />}
+          // @ts-ignore
+
+          element={<IngredientDetails />}
         />
-        <Route path="/" element={<HomePage onCloseModal={onCloseModal} />} />
+
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/profile/orders"
           element={<OnlyUnAuth component={<OrderPage />} />}
@@ -80,7 +79,7 @@ const App = () => {
             path="/ingredients/:id"
             element={
               <Modal onCloseModal={onCloseModal}>
-                <IngredientDetails newPage />
+                <IngredientDetails />
               </Modal>
             }
           />

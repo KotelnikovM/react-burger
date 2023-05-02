@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import {
   PasswordInput,
   EmailInput,
@@ -9,7 +9,7 @@ import styles from './login.module.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../../services/actions/user-actions';
 
-export const LoginPage = () => {
+export const LoginPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,12 +18,14 @@ export const LoginPage = () => {
     password: '',
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    //@ts-ignore
+
     dispatch(login(form.email, form.password)).then(() => {
       navigate('/login');
     });
@@ -48,7 +50,14 @@ export const LoginPage = () => {
         value={form.password}
         onChange={onChange}
       />
-      <Button htmlType="sumbit" type="primary" size="medium" extraClass="mb-20">
+      <Button
+        //@ts-ignore
+
+        htmlType="sumbit"
+        type="primary"
+        size="medium"
+        extraClass="mb-20"
+      >
         Войти
       </Button>
       <p

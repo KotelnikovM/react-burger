@@ -7,7 +7,7 @@ import {
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import styles from './app-header.module.css';
 
-const AppHeader = () => {
+const AppHeader = (): JSX.Element => {
   const activeStyle = 'text text_type_main-default';
   const inactiveStyle = 'text text_type_main-default text_color_inactive';
 

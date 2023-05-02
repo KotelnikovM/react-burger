@@ -2,7 +2,6 @@ import {
   ConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
@@ -10,6 +9,25 @@ import styles from './burger-constructor-item.module.css';
 import { useDrop, useDrag } from 'react-dnd';
 import { useRef } from 'react';
 import { DECREMENT_BURGER_INGREDIENT_COUNT } from '../../../services/actions/burger-ingredients-actions';
+
+type BurgerConstructorItemProps = {
+  itemId: string;
+  image: string;
+  price: number;
+  name: string;
+  ID: string;
+  index: number;
+  moveIngredients: (dragIndex: number, hoverIndex: number) => void;
+};
+
+type TIngredientDragType = {
+  ID: string;
+  index: number;
+};
+
+type TDragCollectedProps = {
+  isDragging: boolean;
+};
 
 export const BurgerConstructorItem = ({
   itemId,
@@ -19,11 +37,11 @@ export const BurgerConstructorItem = ({
   ID,
   index,
   moveIngredients,
-}) => {
+}: BurgerConstructorItemProps): JSX.Element => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop<TIngredientDragType>({
     accept: 'ingredient',
     hover: (item, monitor) => {
       if (!ref.current) {
@@ -33,12 +51,14 @@ export const BurgerConstructorItem = ({
       const hoverIndex = index;
       if (dragIndex === hoverIndex) return;
 
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
 
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
       const clientOffset = monitor.getClientOffset();
+
+      if (!clientOffset) return;
 
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -56,7 +76,11 @@ export const BurgerConstructorItem = ({
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag<
+    TIngredientDragType,
+    unknown,
+    TDragCollectedProps
+  >({
     type: 'ingredient',
     item: () => {
       return { ID, index };
@@ -75,7 +99,7 @@ export const BurgerConstructorItem = ({
       ref={ref}
       style={{ opacity: opacity }}
     >
-      <DragIcon className="dragIcon" type="primary" />
+      <DragIcon type="primary" />
       <ConstructorElement
         text={name}
         price={price}
@@ -93,14 +117,4 @@ export const BurgerConstructorItem = ({
       />
     </div>
   );
-};
-
-BurgerConstructorItem.propTypes = {
-  itemId: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  ID: PropTypes.string,
-  index: PropTypes.number,
-  moveIngredients: PropTypes.func,
 };
