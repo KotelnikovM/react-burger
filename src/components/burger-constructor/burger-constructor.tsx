@@ -22,7 +22,7 @@ import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../utils/types';
 import { v4 as uuid } from 'uuid';
-import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from '../../services/constants/burger-constructor';
+import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from '../../services/constants/burger-constructor-constants';
 
 const BurgerConstructor = (): JSX.Element => {
   const [isNotAuth, setIsNotAuth] = useState(false);

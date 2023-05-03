@@ -7,7 +7,7 @@ import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-a
 import styles from './bun.module.css';
 import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 import { IIngredient } from '../../../utils/types';
-import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor';
+import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor-constants';
 
 type TBunProps = {
   bun: IIngredient | null;
