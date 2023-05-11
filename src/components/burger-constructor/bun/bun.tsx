@@ -3,11 +3,11 @@ import { useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-actions';
 import styles from './bun.module.css';
 import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
 import { IIngredient } from '../../../utils/types';
 import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor-constants';
+import { UPDATE_BUN_COUNT } from '../../../services/constants/burger-ingredients-constants';
 
 type TBunProps = {
   bun: IIngredient | null;

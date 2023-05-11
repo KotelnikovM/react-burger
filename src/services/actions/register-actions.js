@@ -1,5 +1,3 @@
-// import { register } from '../../utils/norma-api';
-
 import { fetchWithRefresh, NORMA_API } from '../../utils/norma-api';
 
 export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';

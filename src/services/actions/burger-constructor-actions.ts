@@ -18,7 +18,7 @@ export interface IAddIngredientToBurgerConstructorAction {
 
 export interface IDeleteIngredientFromBurgerConstructorAction {
   readonly type: typeof DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR;
-  readonly payload?: Pick<IIngredient, 'ID'>;
+  readonly payload?: string;
 }
 
 export interface IUpdateBunInBurgerConstructorAction {
@@ -39,5 +39,14 @@ export const updateIngredients = (
   return {
     type: UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
     payload: ingredients,
+  };
+};
+
+export const DeleteIngredientFromBurgerConstructor = (
+  ID: string
+): IDeleteIngredientFromBurgerConstructorAction => {
+  return {
+    type: DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR,
+    payload: ID,
   };
 };

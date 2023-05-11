@@ -1,3 +1,11 @@
+import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { TBurgerConstructorActions } from '../services/actions/burger-constructor-actions';
+import { TBurgerIngredientsActions } from '../services/actions/burger-ingredients-actions';
+import { TIngredientDetailsActions } from '../services/actions/ingredient-details-actions';
+import { TOrderActions } from '../services/actions/order-actions';
+import { RootState } from '../services/store';
+
 export type TOptions = RequestInit & {
   headers: {
     authorization: string;
@@ -44,3 +52,24 @@ export interface IUserResponce {
   refreshToken: string;
   message: string;
 }
+
+export interface IOrderResponce {
+  success: boolean;
+  order: { number: number };
+  name: string;
+}
+
+type TApplicationActions =
+  | TOrderActions
+  | TBurgerIngredientsActions
+  | TIngredientDetailsActions
+  | TBurgerConstructorActions;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  TApplicationActions
+>;
+
+export type AppDispatch = Dispatch<TApplicationActions>;
