@@ -1,9 +1,4 @@
 import {
-  AUTH_REGISTER_FAILED,
-  AUTH_REGISTER_REQUEST,
-  AUTH_REGISTER_SUCCESS,
-} from '../actions/register-actions';
-import {
   AUTH_CHECKED,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_REQUEST_FAILED,
@@ -21,7 +16,14 @@ import {
   SET_USER,
   USER_REQUEST,
   USER_REQUEST_FAILED,
-} from '../actions/user-actions';
+} from '../constants/user-constants';
+import {
+  AUTH_REGISTER_FAILED,
+  AUTH_REGISTER_REQUEST,
+  AUTH_REGISTER_SUCCESS,
+} from '../constants/register-constants';
+import { TUserActions } from '../actions/user-actions';
+import { TRegisterActions } from '../actions/register-actions';
 
 const initialState = {
   isLoading: false,
@@ -31,7 +33,9 @@ const initialState = {
   isCorrectEmail: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+type TAuthActions = TUserActions | TRegisterActions;
+
+export const authReducer = (state = initialState, action: TAuthActions) => {
   switch (action.type) {
     case AUTH_REGISTER_REQUEST: {
       return {
@@ -46,7 +50,7 @@ export const authReducer = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isAuthChecked: true,
-        user: action.payload.user,
+        user: action.payload,
       };
     }
 

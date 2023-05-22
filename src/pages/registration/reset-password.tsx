@@ -25,9 +25,10 @@ export const ResetPasswordPage = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //@ts-ignore
 
-    dispatch(passwordReset(form.password, form.token)).then(() => {
+    passwordReset({ password: form.password, token: form.token })(
+      dispatch
+    ).then(() => {
       localStorage.removeItem('correctEmail');
       navigate('/login');
     });

@@ -8,13 +8,14 @@ import { ForgotPasswordPage } from '../../pages/registration/forgot-password';
 import { ResetPasswordPage } from '../../pages/registration/reset-password';
 import { ProfilePage } from '../../pages/profile/profile';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/actions/user-actions';
 import { getBurgerIngredients } from '../../services/actions/burger-ingredients-actions';
 import OrderPage from '../../pages/profile/orders/order';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
+import { useDispatch } from '../../utils/types';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     // @ts-ignore
+
     dispatch(getBurgerIngredients());
     // @ts-ignore
     dispatch(checkUserAuth());
@@ -39,12 +41,7 @@ const App = (): JSX.Element => {
       <AppHeader />
 
       <Routes location={background || location}>
-        <Route
-          path="/ingredients/:id"
-          // @ts-ignore
-
-          element={<IngredientDetails />}
-        />
+        <Route path="/ingredients/:id" element={<IngredientDetails />} />
 
         <Route path="/" element={<HomePage />} />
         <Route

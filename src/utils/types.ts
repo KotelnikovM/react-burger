@@ -4,17 +4,26 @@ import { TBurgerConstructorActions } from '../services/actions/burger-constructo
 import { TBurgerIngredientsActions } from '../services/actions/burger-ingredients-actions';
 import { TIngredientDetailsActions } from '../services/actions/ingredient-details-actions';
 import { TOrderActions } from '../services/actions/order-actions';
+import { TRegisterActions } from '../services/actions/register-actions';
 import { RootState } from '../services/store';
+import {
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from 'react-redux';
+import { TUserActions } from '../services/actions/user-actions';
 
 export type TOptions = RequestInit & {
   headers: {
-    authorization: string;
+    authorization?: string;
   };
 };
 
 export interface IUser {
-  email: string;
-  name: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  token?: string;
 }
 
 export interface IIngredient {
@@ -43,6 +52,8 @@ export interface IRefreshTokenResponse {
   message: string;
   success: boolean;
   refreshToken: string;
+  accessToken: string;
+  user?: IUser;
 }
 
 export interface IUserResponce {
@@ -59,11 +70,19 @@ export interface IOrderResponce {
   name: string;
 }
 
+export interface IRegisterResponse {
+  email: string;
+  password: string;
+  name: string;
+}
+
 type TApplicationActions =
   | TOrderActions
   | TBurgerIngredientsActions
   | TIngredientDetailsActions
-  | TBurgerConstructorActions;
+  | TBurgerConstructorActions
+  | TRegisterActions
+  | TUserActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -72,4 +91,11 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   TApplicationActions
 >;
 
+// export type AppDispatch<TReturnType = void> = (
+//   action: TApplicationActions | AppThunk<TReturnType>
+// ) => TReturnType
+
 export type AppDispatch = Dispatch<TApplicationActions>;
+
+export const useDispatch: () => AppDispatch = dispatchHook;
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

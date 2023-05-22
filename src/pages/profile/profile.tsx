@@ -122,7 +122,11 @@ export const ProfilePage = (): JSX.Element => {
               onClick={() =>
                 //@ts-ignore
 
-                dispatch(patchUser(form.email, form.password, form.name))
+                patchUser({
+                  email: form.email,
+                  password: form.password,
+                  name: form.name,
+                })(dispatch)
               }
             >
               Сохранить

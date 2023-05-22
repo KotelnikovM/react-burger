@@ -5,9 +5,10 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerAction } from '../../services/actions/register-actions';
+import { useDispatch } from '../../utils/types';
 import styles from './registration.module.css';
 
 export const RegistrationPage = (): JSX.Element => {
@@ -62,9 +63,11 @@ export const RegistrationPage = (): JSX.Element => {
         size="medium"
         extraClass="mb-20"
         onClick={() => {
-          //@ts-ignore
-
-          dispatch(registerAction(form.email, form.password, form.name));
+          registerAction({
+            email: form.email,
+            password: form.password,
+            name: form.name,
+          })(dispatch);
         }}
       >
         Зарегистрироваться
