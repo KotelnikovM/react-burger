@@ -24,7 +24,7 @@ const initialState: TBurgerIngredientsState = {
 export const burgerIngredientReducer = (
   state = initialState,
   action: TBurgerIngredientsActions
-) => {
+): TBurgerIngredientsState => {
   switch (action.type) {
     case BURGER_INGREDIENTS_REQUEST: {
       return {
@@ -52,7 +52,10 @@ export const burgerIngredientReducer = (
       return {
         ...state,
         ingredients: [
+          // @ts-ignore
+
           ...state.ingredients,
+          // @ts-ignore
 
           state.ingredients.map((ingredient) =>
             ingredient._id === action.payload.itemId
@@ -69,7 +72,9 @@ export const burgerIngredientReducer = (
       return {
         ...state,
         ingredients: [
+          // @ts-ignore
           ...state.ingredients,
+          // @ts-ignore
 
           state.ingredients.map((ingredient) =>
             ingredient._id === action.payload.itemId
@@ -86,7 +91,10 @@ export const burgerIngredientReducer = (
       return {
         ...state,
         ingredients: [
+          // @ts-ignore
+
           ...state.ingredients,
+          // @ts-ignore
 
           state.ingredients.map((ingredient) =>
             ingredient._id === action.payload.itemId

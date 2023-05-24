@@ -79,6 +79,7 @@ export type TLogoutRequestSuccess = {
 
 export type TLogoutRequestFailed = {
   readonly type: typeof LOGOUT_REQUEST_FAILED;
+  readonly payload: string;
 };
 
 export type TPatchUserRequest = {

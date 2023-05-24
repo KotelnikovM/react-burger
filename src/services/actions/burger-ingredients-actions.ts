@@ -1,5 +1,5 @@
 import { getIngredients } from '../../utils/norma-api';
-import { AppDispatch, AppThunk, IIngredient } from '../../utils/types';
+import { AppDispatch, IIngredient } from '../../utils/types';
 import {
   BURGER_INGREDIENTS_FAILED,
   BURGER_INGREDIENTS_REQUEST,
@@ -45,7 +45,7 @@ export type TBurgerIngredientsActions =
   | IIncrementBurgerIngredientCount
   | IDecrementBurgerIngredientCount;
 
-export const getBurgerIngredients = (): AppThunk => {
+export const getBurgerIngredients = () => {
   return (dispatch: AppDispatch) => {
     dispatch({ type: BURGER_INGREDIENTS_REQUEST });
     getIngredients()

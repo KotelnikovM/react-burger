@@ -7,13 +7,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import styles from './profile.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { logout, patchUser } from '../../services/actions/user-actions';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../../utils/types';
 
 export const ProfilePage = (): JSX.Element => {
   const dispatch = useDispatch();
-  //@ts-ignore
+  // const user = useSelector((state) => state.auth.user);
   const user = useSelector((state) => state.auth.user);
   const [form, setForm] = useState({
     name: '',
@@ -23,16 +24,16 @@ export const ProfilePage = (): JSX.Element => {
 
   useEffect(() => {
     setForm({
-      email: user.email,
-      name: user.name,
+      email: user?.email || '',
+      name: user?.name || '',
       password: '',
     });
   }, [user]);
 
   const resetForms = () => {
     setForm({
-      email: user.email,
-      name: user.name,
+      email: user?.email || '',
+      name: user?.name || '',
       password: '',
     });
   };
@@ -64,7 +65,6 @@ export const ProfilePage = (): JSX.Element => {
                 className={styles.link}
                 to={'/login'}
                 onClick={() => {
-                  //@ts-ignore
                   dispatch(logout());
                 }}
               >
@@ -103,8 +103,8 @@ export const ProfilePage = (): JSX.Element => {
           extraClass="mb-6"
         />
 
-        {(form.name === user.name &&
-          form.email === user.email &&
+        {(form.name === user?.name &&
+          form.email === user?.email &&
           form.password?.length === 0) || (
           <div>
             <Button

@@ -8,7 +8,7 @@ import {
 
 export interface IIngredientDetailsOpen {
   readonly type: typeof INGREDIENT_DETAILS_OPEN;
-  readonly payload?: boolean | IIngredient;
+  readonly payload: IIngredient;
 }
 
 export interface IIngredientDetailsClose {

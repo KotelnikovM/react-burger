@@ -29,11 +29,8 @@ const App = (): JSX.Element => {
   };
 
   useEffect(() => {
-    // @ts-ignore
-
     dispatch(getBurgerIngredients());
-    // @ts-ignore
-    dispatch(checkUserAuth());
+    checkUserAuth()(dispatch);
   }, [dispatch]);
 
   return (

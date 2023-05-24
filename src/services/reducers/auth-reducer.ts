@@ -24,8 +24,17 @@ import {
 } from '../constants/register-constants';
 import { TUserActions } from '../actions/user-actions';
 import { TRegisterActions } from '../actions/register-actions';
+import { IUser } from '../../utils/types';
 
-const initialState = {
+export type TAuthReducerInitialState = {
+  isLoading: boolean;
+  isError: boolean;
+  user?: IUser | null;
+  isAuthChecked: boolean;
+  isCorrectEmail: boolean;
+};
+
+const initialState: TAuthReducerInitialState = {
   isLoading: false,
   isError: false,
   user: null,

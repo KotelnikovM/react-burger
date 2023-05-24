@@ -91,11 +91,12 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   TApplicationActions
 >;
 
-// export type AppDispatch<TReturnType = void> = (
-//   action: TApplicationActions | AppThunk<TReturnType>
-// ) => TReturnType
+export type AppDispatch<TReturnType = void> = (
+  action: TApplicationActions | AppThunk<TReturnType>
+) => TReturnType;
 
-export type AppDispatch = Dispatch<TApplicationActions>;
+// export type AppDispatch = Dispatch<TApplicationActions>;
 
+// @ts-ignore
 export const useDispatch: () => AppDispatch = dispatchHook;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

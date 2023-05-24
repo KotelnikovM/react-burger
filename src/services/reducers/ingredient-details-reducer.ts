@@ -8,13 +8,13 @@ import {
 } from '../constants/ingredient-details-constants';
 
 type TIngredientDetailsState = {
-  infoOfIngredient: IIngredient | {};
+  infoOfIngredient: IIngredient | null;
   isOpenedIngredientDetails: boolean;
   isOpenedOrderDetails: boolean;
 };
 
 const initialState: TIngredientDetailsState = {
-  infoOfIngredient: {},
+  infoOfIngredient: null,
   isOpenedIngredientDetails: false,
   isOpenedOrderDetails: false,
 };
@@ -22,7 +22,7 @@ const initialState: TIngredientDetailsState = {
 const ingredientDetailsReducer = (
   state = initialState,
   action: TIngredientDetailsActions
-) => {
+): TIngredientDetailsState => {
   switch (action.type) {
     case INGREDIENT_DETAILS_OPEN: {
       return {

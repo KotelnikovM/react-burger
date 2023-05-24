@@ -8,7 +8,7 @@ import {
 
 export interface IUpgradeIngredientsAction {
   readonly type: typeof UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR;
-  readonly payload?: IIngredient[];
+  readonly payload: IIngredient[];
 }
 
 export interface IAddIngredientToBurgerConstructorAction {
@@ -23,7 +23,7 @@ export interface IDeleteIngredientFromBurgerConstructorAction {
 
 export interface IUpdateBunInBurgerConstructorAction {
   readonly type: typeof UPDATE_BUN_IN_BURGER_CONSTRUCTOR;
-  readonly payload?: IIngredient[];
+  readonly payload: IIngredient;
   readonly isBun?: boolean;
 }
 

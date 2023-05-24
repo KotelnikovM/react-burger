@@ -11,10 +11,16 @@ import { registerAction } from '../../services/actions/register-actions';
 import { useDispatch } from '../../utils/types';
 import styles from './registration.module.css';
 
+type TForm = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export const RegistrationPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<TForm>({
     name: '',
     email: '',
     password: '',
@@ -26,9 +32,14 @@ export const RegistrationPage = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //@ts-ignore
 
-    dispatch(registerAction(form.email, form.password, form.name));
+    dispatch(
+      registerAction({
+        email: form.email,
+        password: form.password,
+        name: form.name,
+      })
+    );
   };
 
   return (

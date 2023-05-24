@@ -10,11 +10,16 @@ import styles from './login.module.css';
 import { login } from '../../services/actions/user-actions';
 import { useDispatch } from '../../utils/types';
 
+type TForm = {
+  email: string;
+  password: string;
+};
+
 export const LoginPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<TForm>({
     email: '',
     password: '',
   });
@@ -25,9 +30,8 @@ export const LoginPage = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //@ts-ignore
 
-    dispatch(login({ email: form.email, password: form.password })).then(() => {
+    login({ email: form.email, password: form.password })(dispatch).then(() => {
       navigate('/login');
     });
   };

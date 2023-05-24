@@ -1,9 +1,9 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
 
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import styles from './bun.module.css';
-import { IIngredient } from '../../../utils/types';
+import { IIngredient, useDispatch } from '../../../utils/types';
 import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor-constants';
 import { UPDATE_BUN_COUNT } from '../../../services/constants/burger-ingredients-constants';
 
