@@ -101,7 +101,6 @@ const BurgerConstructor = (): JSX.Element => {
     if (user) {
       setIsNotAuth(false);
       dispatch({ type: ORDER_DETAILS_OPEN });
-      //@ts-ignore
       dispatch(getNumberOfOrder(orderIngredients));
     } else {
       setIsNotAuth(true);

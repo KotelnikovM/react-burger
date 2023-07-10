@@ -5,6 +5,7 @@ import {
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, useMatch } from 'react-router-dom';
+import { paths } from '../../utils/routes';
 import styles from './app-header.module.css';
 
 const AppHeader = (): JSX.Element => {
@@ -13,7 +14,7 @@ const AppHeader = (): JSX.Element => {
 
   const isProfile = !!useMatch('/profile');
   const isHome = !!useMatch('/');
-  const isOrders = !!useMatch('/profile/orders');
+  const isOrders = !!useMatch(paths.feed);
 
   return (
     <header className={styles.appHeader}>
@@ -39,11 +40,11 @@ const AppHeader = (): JSX.Element => {
           </NavLink>
         </li>
         <li className={styles.orderFeedTab}>
-          <NavLink to="/profile/orders">
+          <NavLink to={paths.feed}>
             <ListIcon type={isOrders ? 'primary' : 'secondary'} />
           </NavLink>
           <NavLink
-            to="/profile/orders"
+            to={paths.feed}
             className={({ isActive }) =>
               isActive
                 ? 'text text_type_main-default'

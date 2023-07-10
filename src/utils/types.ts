@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { TBurgerConstructorActions } from '../services/actions/burger-constructor-actions';
 import { TBurgerIngredientsActions } from '../services/actions/burger-ingredients-actions';
@@ -12,6 +11,8 @@ import {
   useSelector as selectorHook,
 } from 'react-redux';
 import { TUserActions } from '../services/actions/user-actions';
+import { TWSAuthActions } from '../services/actions/WS-auth-action';
+import { TWSActions } from '../services/actions/WS-action';
 
 export type TOptions = RequestInit & {
   headers: {
@@ -76,13 +77,42 @@ export interface IRegisterResponse {
   name: string;
 }
 
+export interface IWSMiddlewareActions {
+  wsInit: string;
+  wsSendMessage: string;
+  wsClose: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
+}
+
+export interface IFeed {
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+export interface IFeedResponse {
+  success: boolean;
+  total: number;
+  totalToday: number;
+  orders: Array<IFeed>;
+}
+
 type TApplicationActions =
   | TOrderActions
   | TBurgerIngredientsActions
   | TIngredientDetailsActions
   | TBurgerConstructorActions
   | TRegisterActions
-  | TUserActions;
+  | TUserActions
+  | TWSAuthActions
+  | TWSActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
