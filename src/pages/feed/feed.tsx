@@ -15,10 +15,10 @@ export function Feed(): ReactElement {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START });
-    // return () => {
-    //     dispatch({ type: WS_CONNECTION_CLOSED })
-    // }
-  }, [dispatch]);
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, []);
 
   const { orders, total, totalToday } = useSelector((store) => store.ws);
 

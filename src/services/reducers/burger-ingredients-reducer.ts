@@ -49,61 +49,72 @@ export const burgerIngredientReducer = (
     }
 
     case UPDATE_BUN_COUNT: {
+      const ingredients = state.ingredients.map((ingredient) => {
+        if (ingredient._id === action.payload.itemId) {
+          return {
+            ...ingredient,
+            count: (ingredient.count = 2),
+          };
+        } else if (ingredient.type === 'bun') {
+          return {
+            ...ingredient,
+            count: (ingredient.count = 0),
+          };
+        } else {
+          return ingredient;
+        }
+      });
       return {
         ...state,
-        ingredients: [
-          // @ts-ignore
-
-          ...state.ingredients,
-          // @ts-ignore
-
-          state.ingredients.map((ingredient) =>
-            ingredient._id === action.payload.itemId
-              ? (ingredient.count = 2)
-              : ingredient.type === 'bun'
-              ? (ingredient.count = 0)
-              : ingredient.count
-          ),
-        ],
+        ingredients,
       };
     }
 
     case INCREMENT_BURGER_INGREDIENT_COUNT: {
+      const ingredients = state.ingredients.map((ingredient) => {
+        if (ingredient._id === action.payload.itemId) {
+          if (!ingredient.count) {
+            return {
+              ...ingredient,
+              count: 1,
+            };
+          } else {
+            return {
+              ...ingredient,
+              count: (ingredient.count += 1),
+            };
+          }
+        } else {
+          return ingredient;
+        }
+      });
       return {
         ...state,
-        ingredients: [
-          // @ts-ignore
-          ...state.ingredients,
-          // @ts-ignore
-
-          state.ingredients.map((ingredient) =>
-            ingredient._id === action.payload.itemId
-              ? !ingredient.count
-                ? (ingredient.count = 1)
-                : (ingredient.count += 1)
-              : ingredient.count
-          ),
-        ],
+        ingredients,
       };
     }
 
     case DECREMENT_BURGER_INGREDIENT_COUNT: {
+      const ingredients = state.ingredients.map((ingredient) => {
+        if (ingredient._id === action.payload.itemId) {
+          if (!ingredient.count) {
+            return {
+              ...ingredient,
+              count: 1,
+            };
+          } else {
+            return {
+              ...ingredient,
+              count: (ingredient.count -= 1),
+            };
+          }
+        } else {
+          return ingredient;
+        }
+      });
       return {
         ...state,
-        ingredients: [
-          // @ts-ignore
-
-          ...state.ingredients,
-          // @ts-ignore
-
-          state.ingredients.map((ingredient) =>
-            ingredient._id === action.payload.itemId
-              ? !ingredient.count
-                ? (ingredient.count = 1)
-                : ingredient.count--
-              : ingredient.count
-          ),
-        ],
+        ingredients,
       };
     }
 

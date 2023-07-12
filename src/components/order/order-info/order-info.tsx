@@ -108,7 +108,6 @@ export function OrderInfo({ newPage }: TOrderInfo): ReactElement {
     const count = ordersOfIngredients?.filter(
       (ingredient) => ingredient?._id === item._id
     ).length;
-    // eslint-disable-next-line no-param-reassign
     item.count = count;
     return item;
   });
@@ -123,7 +122,7 @@ export function OrderInfo({ newPage }: TOrderInfo): ReactElement {
   );
 
   return (
-    <dialog className={orderDetailsStyles.wrapper}>
+    <div className={orderDetailsStyles.wrapper}>
       <h2 className={stylesNumber}>#{order?.number}</h2>
       <h1 className={orderDetailsStyles.name}>{order?.name}</h1>
       <h3 className={`${stylesStatus} ${orderDetailsStyles.status}`}>
@@ -148,6 +147,6 @@ export function OrderInfo({ newPage }: TOrderInfo): ReactElement {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </dialog>
+    </div>
   );
 }

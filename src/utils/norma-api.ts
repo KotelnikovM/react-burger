@@ -10,7 +10,7 @@ export const NORMA_API = 'https://norma.nomoreparties.space/api';
 
 export const checkResponse = <T>(response: Response) =>
   response.ok
-    ? (response.json() as Promise<T>)
+    ? response.json()
     : response.json().then((error: Error) => Promise.reject(error));
 
 // export const getIngredients = () => {
@@ -55,7 +55,6 @@ export const refreshToken = <T>(): Promise<T> =>
     body: JSON.stringify({
       token: localStorage.getItem('refreshToken'),
     }),
-    //@ts-ignore
   }).then(checkResponse<T>);
 
 export const fetchWithRefresh = async (

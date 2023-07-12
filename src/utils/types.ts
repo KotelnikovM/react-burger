@@ -13,6 +13,7 @@ import {
 import { TUserActions } from '../services/actions/user-actions';
 import { TWSAuthActions } from '../services/actions/WS-auth-action';
 import { TWSActions } from '../services/actions/WS-action';
+import type {} from 'redux-thunk/extend-redux';
 
 export type TOptions = RequestInit & {
   headers: {
@@ -125,8 +126,5 @@ export type AppDispatch<TReturnType = void> = (
   action: TApplicationActions | AppThunk<TReturnType>
 ) => TReturnType;
 
-// export type AppDispatch = Dispatch<TApplicationActions>;
-
-// @ts-ignore
 export const useDispatch: () => AppDispatch = dispatchHook;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

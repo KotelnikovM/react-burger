@@ -1,19 +1,19 @@
 .wrapper {
   width: 640px;
   height: 620px;
-  position: fixed;
+  /* position: fixed; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  bottom: -350px;
-
+  /* bottom: 20vh; */
+  margin: 100px auto 0;
   border: none;
   border-radius: 40px;
   padding: 40px;
   z-index: 10000;
 
   color: #f2f2f3;
-  background: #131316;
+  /* background: #131316; */
 }
 
 .number,

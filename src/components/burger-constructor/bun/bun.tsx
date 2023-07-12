@@ -26,7 +26,10 @@ const Bun = ({ bun, coordinate, position }: TBunProps): JSX.Element => {
     });
     dispatch({
       type: UPDATE_BUN_COUNT,
-      payload: { itemId: item._id },
+      payload: {
+        itemId: item._id,
+      },
+      // payload: { ...item },
     });
   };
 

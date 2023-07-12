@@ -52,8 +52,9 @@ export const socketMiddleware =
             timer = null;
           }
           autoConnect = false;
-          socket.close();
-          dispatch({ type: onClose });
+          socket.close = () => {
+            dispatch({ type: onClose });
+          };
           return;
         }
 
@@ -75,7 +76,7 @@ export const socketMiddleware =
             timer = setTimeout(() => {
               connect();
               timer = null;
-            }, 1000);
+            }, 3000);
           }
           socket = null;
         };
