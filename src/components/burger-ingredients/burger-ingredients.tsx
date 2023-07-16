@@ -9,11 +9,10 @@ import React, {
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { IIngredient } from '../../utils/types';
+// import { useDispatch, useSelector } from 'react-redux';
+import { IIngredient, useDispatch, useSelector } from '../../utils/types';
 
 const BurgerIngredients = (): JSX.Element => {
-  //@ts-ignore
   const data = useSelector((state) => state.burgerIngredient.ingredients);
 
   const dispatch = useDispatch();

@@ -1,27 +1,33 @@
+import { ThunkAction } from 'redux-thunk';
+import { TBurgerConstructorActions } from '../services/actions/burger-constructor-actions';
+import { TBurgerIngredientsActions } from '../services/actions/burger-ingredients-actions';
+import { TIngredientDetailsActions } from '../services/actions/ingredient-details-actions';
+import { TOrderActions } from '../services/actions/order-actions';
+import { TRegisterActions } from '../services/actions/register-actions';
+import { RootState } from '../services/store';
+import {
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from 'react-redux';
+import { TUserActions } from '../services/actions/user-actions';
+import { TWSAuthActions } from '../services/actions/WS-auth-action';
+import { TWSActions } from '../services/actions/WS-action';
+import type {} from 'redux-thunk/extend-redux';
+
 export type TOptions = RequestInit & {
   headers: {
-    authorization: string;
+    authorization?: string;
   };
 };
 
 export interface IUser {
-  email: string;
-  name: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  token?: string;
 }
 
-// calories: PropTypes.number.isRequired,
-// carbohydrates: PropTypes.number.isRequired,
-// fat: PropTypes.number.isRequired,
-// image: PropTypes.string.isRequired,
-// image_large: PropTypes.string.isRequired,
-// image_mobile: PropTypes.string.isRequired,
-// name: PropTypes.string.isRequired,
-// price: PropTypes.number.isRequired,
-// proteins: PropTypes.number.isRequired,
-// type: PropTypes.string.isRequired,
-// __v: PropTypes.number.isRequired,
-// _id: PropTypes.string.isRequired,
-// });
 export interface IIngredient {
   ID?: string;
   count?: number;
@@ -48,6 +54,8 @@ export interface IRefreshTokenResponse {
   message: string;
   success: boolean;
   refreshToken: string;
+  accessToken: string;
+  user?: IUser;
 }
 
 export interface IUserResponce {
@@ -57,3 +65,66 @@ export interface IUserResponce {
   refreshToken: string;
   message: string;
 }
+
+export interface IOrderResponce {
+  success: boolean;
+  order: { number: number };
+  name: string;
+}
+
+export interface IRegisterResponse {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface IWSMiddlewareActions {
+  wsInit: string;
+  wsSendMessage: string;
+  wsClose: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
+}
+
+export interface IFeed {
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+export interface IFeedResponse {
+  success: boolean;
+  total: number;
+  totalToday: number;
+  orders: Array<IFeed>;
+}
+
+type TApplicationActions =
+  | TOrderActions
+  | TBurgerIngredientsActions
+  | TIngredientDetailsActions
+  | TBurgerConstructorActions
+  | TRegisterActions
+  | TUserActions
+  | TWSAuthActions
+  | TWSActions;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  TApplicationActions
+>;
+
+export type AppDispatch<TReturnType = void> = (
+  action: TApplicationActions | AppThunk<TReturnType>
+) => TReturnType;
+
+export const useDispatch: () => AppDispatch = dispatchHook;
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;

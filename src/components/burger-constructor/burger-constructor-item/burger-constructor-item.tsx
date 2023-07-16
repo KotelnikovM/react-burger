@@ -4,11 +4,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { useDispatch } from 'react-redux';
-import { DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
 import styles from './burger-constructor-item.module.css';
 import { useDrop, useDrag } from 'react-dnd';
 import { useRef } from 'react';
-import { DECREMENT_BURGER_INGREDIENT_COUNT } from '../../../services/actions/burger-ingredients-actions';
+import { DeleteIngredientFromBurgerConstructor } from '../../../services/actions/burger-constructor-actions';
+import { DECREMENT_BURGER_INGREDIENT_COUNT } from '../../../services/constants/burger-ingredients-constants';
 
 type BurgerConstructorItemProps = {
   itemId: string;
@@ -105,10 +105,7 @@ export const BurgerConstructorItem = ({
         price={price}
         thumbnail={image}
         handleClose={() => {
-          dispatch({
-            type: DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR,
-            ID,
-          });
+          dispatch(DeleteIngredientFromBurgerConstructor(ID));
           dispatch({
             type: DECREMENT_BURGER_INGREDIENT_COUNT,
             payload: { itemId },

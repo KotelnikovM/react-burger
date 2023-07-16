@@ -1,8 +1,8 @@
 import styles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {} from '../../../services/actions/burger-constructor-actions';
-import { IIngredient } from '../../../utils/types';
+import { IIngredient, useSelector } from '../../../utils/types';
 
 type TIngredientDetails = Pick<
   IIngredient,
@@ -13,8 +13,6 @@ const IngredientDetails = (): JSX.Element => {
   const { id } = useParams();
 
   const ingredients = useSelector(
-    //@ts-ignore
-
     (state) => state.burgerIngredient.ingredients
   );
 

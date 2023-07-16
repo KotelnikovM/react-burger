@@ -1,21 +1,33 @@
-import { ChangeEvent, useState } from 'react';
+import React, {
+  useState,
+  useEffect,
+  ReactElement,
+  ChangeEvent,
+  FormEvent,
+} from 'react';
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
-import styles from './profile.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, patchUser } from '../../services/actions/user-actions';
-import { useEffect } from 'react';
+import cn from 'classnames';
+import profileStyles from './profile.module.css';
+import { ProfileAsideMenu } from './aside-menu/aside-menu';
+import { useDispatch, useSelector } from '../../utils/types';
+import { patchUser } from '../../services/actions/user-actions';
+import { getAuth } from '../../utils/selector-functions';
 
-export const ProfilePage = (): JSX.Element => {
+type TForm = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const Profile = React.memo((): ReactElement => {
   const dispatch = useDispatch();
-  //@ts-ignore
-  const user = useSelector((state) => state.auth.user);
-  const [form, setForm] = useState({
+  const { user } = useSelector(getAuth);
+  const [form, setForm] = useState<TForm>({
     name: '',
     email: '',
     password: '',
@@ -23,16 +35,16 @@ export const ProfilePage = (): JSX.Element => {
 
   useEffect(() => {
     setForm({
-      email: user.email,
-      name: user.name,
+      email: user?.email || '',
+      name: user?.name || '',
       password: '',
     });
-  }, [user]);
+  }, [user?.email, user?.name]);
 
   const resetForms = () => {
     setForm({
-      email: user.email,
-      name: user.name,
+      email: user?.email || '',
+      name: user?.email || '',
       password: '',
     });
   };
@@ -41,95 +53,76 @@ export const ProfilePage = (): JSX.Element => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const userData = {
+      email: form.email,
+      password: form.password,
+      name: form.name,
+    };
+    patchUser(userData)(dispatch);
+  };
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.container}>
-        <aside className={styles.asideWrapper}>
-          <ul className={`${styles.asideList} mb-20`}>
-            <li className={`${styles.asideItem} ${styles.active}`}>
-              <Link
-                className={`${styles.asideItem} ${styles.active}`}
-                to="/info/profile"
-              >
-                Профиль
-              </Link>
-            </li>
-            <li className={styles.asideItem}>
-              <Link className={styles.link} to="/info/orders">
-                История заказа
-              </Link>
-            </li>
-            <li className={styles.asideItem}>
-              <Link
-                className={styles.link}
-                to={'/login'}
-                onClick={() => {
-                  //@ts-ignore
-                  dispatch(logout());
-                }}
-              >
-                Выход
-              </Link>
-            </li>
-          </ul>
-          <p className={styles.p}>
-            В этом разделе вы можете изменить свои персональные данные
-          </p>
-        </aside>
-        <Input
-          onChange={onChange}
-          placeholder="Имя"
-          name="name"
-          type="text"
-          value={form.name}
-          icon="EditIcon"
-          extraClass={`mb-6 ${styles.input}`}
-          // color="#8585ad"
-        />
-        <EmailInput
-          onChange={onChange}
-          value={form.email}
-          name="email"
-          placeholder="email"
-          isIcon
-          extraClass="mb-6"
-        />
-        <PasswordInput
-          onChange={onChange}
-          value={form.password}
-          name="password"
-          placeholder="password"
-          icon="EditIcon"
-          extraClass="mb-6"
-        />
+    <section className={profileStyles.wrapper}>
+      <ProfileAsideMenu />
+      <div className={profileStyles.container}>
+        <form onSubmit={onSubmit}>
+          <Input
+            onChange={onChange}
+            placeholder="Имя"
+            name="name"
+            type="text"
+            value={form.name}
+            icon="EditIcon"
+            extraClass={cn('mb-6', profileStyles.input)}
+          />
+          <EmailInput
+            onChange={onChange}
+            value={form.email}
+            name="email"
+            placeholder="email"
+            isIcon
+            extraClass="mb-6"
+          />
+          <PasswordInput
+            onChange={onChange}
+            value={form.password}
+            name="password"
+            placeholder="password"
+            icon="EditIcon"
+            extraClass="mb-6"
+          />
 
-        {(form.name === user.name &&
-          form.email === user.email &&
-          form.password?.length === 0) || (
-          <div>
-            <Button
-              htmlType="button"
-              type="primary"
-              size="medium"
-              onClick={resetForms}
-            >
-              Отмена
-            </Button>
-            <Button
-              htmlType="button"
-              type="primary"
-              size="medium"
-              onClick={() =>
-                //@ts-ignore
-
-                dispatch(patchUser(form.email, form.password, form.name))
-              }
-            >
-              Сохранить
-            </Button>
-          </div>
-        )}
+          {(form.name === user?.name &&
+            form.email === user?.email &&
+            form.password?.length === 0) || (
+            <div className={profileStyles.changeInputsContainer}>
+              <Button
+                htmlType="button"
+                type="primary"
+                size="medium"
+                onClick={resetForms}
+              >
+                Отмена
+              </Button>
+              <Button
+                htmlType="button"
+                type="primary"
+                size="medium"
+                onClick={() =>
+                  patchUser({
+                    email: form.email,
+                    password: form.password,
+                    name: form.name,
+                  })(dispatch)
+                }
+              >
+                Сохранить
+              </Button>
+            </div>
+          )}
+        </form>
       </div>
     </section>
   );
-};
+});

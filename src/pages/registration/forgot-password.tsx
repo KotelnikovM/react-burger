@@ -6,8 +6,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './forgot-password.module.css';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { passwordForgot } from '../../services/actions/user-actions';
+import { useDispatch } from '../../utils/types';
 
 export const ForgotPasswordPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -20,11 +21,8 @@ export const ForgotPasswordPage = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(passwordForgot(email)).then(() => {
-      //@ts-ignore
-
-      localStorage.setItem('correctEmail', true);
+    passwordForgot({ email })(dispatch).then(() => {
+      localStorage.setItem('correctEmail', 'true');
       navigate('/reset-password');
     });
   };

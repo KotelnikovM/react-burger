@@ -7,36 +7,31 @@ import styles from './burger-constructor.module.css';
 import '../../index.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../modal/order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
+import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
+import { useDrop } from 'react-dnd';
+import { updateIngredients } from '../../services/actions/burger-constructor-actions';
+import Bun from './bun/bun';
+import { getNumberOfOrder } from '../../services/actions/order-actions';
+import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
+import { useNavigate } from 'react-router-dom';
+import { IIngredient, useDispatch, useSelector } from '../../utils/types';
+import { v4 as uuid } from 'uuid';
+import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from '../../services/constants/burger-constructor-constants';
 import {
   ORDER_DETAILS_CLOSE,
   ORDER_DETAILS_OPEN,
-} from '../../services/actions/ingredient-details-actions';
-import { BurgerConstructorItem } from './burger-constructor-item/burger-constructor-item';
-import { useDrop } from 'react-dnd';
-import {
-  ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
-  updateIngredients,
-} from '../../services/actions/burger-constructor-actions';
-import Bun from './bun/bun';
-import { getNumberOfOrder } from '../../services/actions/order-actions';
-import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/actions/burger-ingredients-actions';
-import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
-import { useNavigate } from 'react-router-dom';
-import { IIngredient } from '../../utils/types';
-import { v4 as uuid } from 'uuid';
+} from '../../services/constants/ingredient-details-constants';
+import { INCREMENT_BURGER_INGREDIENT_COUNT } from '../../services/constants/burger-ingredients-constants';
 
 const BurgerConstructor = (): JSX.Element => {
   const [isNotAuth, setIsNotAuth] = useState(false);
   const dispatch = useDispatch();
   const isOpened = useSelector(
-    //@ts-ignore
     (state) => state.ingredientDetails.isOpenedOrderDetails
   );
-  //@ts-ignore
 
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
-  //@ts-ignore
 
   const user = useSelector((state) => state.auth.user);
 
@@ -78,7 +73,7 @@ const BurgerConstructor = (): JSX.Element => {
 
   const totalPrice = useMemo(() => {
     return (
-      ingredients.reduce(
+      ingredients?.reduce(
         (acc: number, item: IIngredient) => acc + item.price,
         0
       ) +
@@ -106,7 +101,6 @@ const BurgerConstructor = (): JSX.Element => {
     if (user) {
       setIsNotAuth(false);
       dispatch({ type: ORDER_DETAILS_OPEN });
-      //@ts-ignore
       dispatch(getNumberOfOrder(orderIngredients));
     } else {
       setIsNotAuth(true);
@@ -187,7 +181,7 @@ const BurgerConstructor = (): JSX.Element => {
           )}
         </>
         {isNotAuth && (
-          <Modal>
+          <Modal onCloseModal={onCloseModal}>
             <NotAuthDetails />
           </Modal>
         )}

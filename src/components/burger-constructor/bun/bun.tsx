@@ -1,13 +1,11 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
-import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
-import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/actions/burger-constructor-actions';
-import { UPDATE_BUN_COUNT } from '../../../services/actions/burger-ingredients-actions';
+// import { useDispatch } from 'react-redux';
 import styles from './bun.module.css';
-import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
-import { IIngredient } from '../../../utils/types';
+import { IIngredient, useDispatch } from '../../../utils/types';
+import { UPDATE_BUN_IN_BURGER_CONSTRUCTOR } from '../../../services/constants/burger-constructor-constants';
+import { UPDATE_BUN_COUNT } from '../../../services/constants/burger-ingredients-constants';
 
 type TBunProps = {
   bun: IIngredient | null;
@@ -28,7 +26,10 @@ const Bun = ({ bun, coordinate, position }: TBunProps): JSX.Element => {
     });
     dispatch({
       type: UPDATE_BUN_COUNT,
-      payload: { itemId: item._id },
+      payload: {
+        itemId: item._id,
+      },
+      // payload: { ...item },
     });
   };
 
@@ -72,12 +73,6 @@ const Bun = ({ bun, coordinate, position }: TBunProps): JSX.Element => {
       )}
     </div>
   );
-};
-
-Bun.propTypes = {
-  bun: ingredientPropTypes,
-  coordinate: PropTypes.string,
-  position: PropTypes.string,
 };
 
 export default Bun;

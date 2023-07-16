@@ -3,13 +3,11 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-item.module.css';
-import { ingredientPropTypes } from '../../../utils/ingredientPropTypes';
-import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { INGREDIENT_DETAILS_OPEN } from '../../../services/actions/ingredient-details-actions';
 import { useDrag } from 'react-dnd/dist/hooks';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredient } from '../../../utils/types';
+import { ingredientDetailsOpen } from '../../../services/actions/ingredient-details-actions';
 
 const IngredientItem = ({ ...item }: IIngredient): JSX.Element => {
   const ID = uuid();
@@ -24,24 +22,12 @@ const IngredientItem = ({ ...item }: IIngredient): JSX.Element => {
     }),
   });
 
-  const dispatch = useDispatch();
-
-  const open = () => {
-    dispatch({
-      type: INGREDIENT_DETAILS_OPEN,
-      payload: {
-        ...item,
-      },
-    });
-  };
-
   return (
     <>
       <div
         className={!isDrag ? styles.item : styles.itemIsDrag}
         onClick={() => {
-          //@ts-ignore
-          open(item.type);
+          ingredientDetailsOpen({ ...item });
         }}
         ref={dragRef}
       >
@@ -69,10 +55,6 @@ const IngredientItem = ({ ...item }: IIngredient): JSX.Element => {
       </div>
     </>
   );
-};
-
-IngredientItem.propTypes = {
-  item: ingredientPropTypes,
 };
 
 export default IngredientItem;

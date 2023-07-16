@@ -7,8 +7,6 @@ type TIngredientGroupProps = {
 };
 
 const IngredientsGroup = ({ data }: TIngredientGroupProps): JSX.Element => {
-  console.log(data);
-
   return (
     <div className={styles.box}>
       {data?.map((item: IIngredient) => {

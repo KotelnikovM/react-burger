@@ -1,17 +1,28 @@
+import { IIngredient } from '../../utils/types';
+import { TIngredientDetailsActions } from '../actions/ingredient-details-actions';
 import {
   INGREDIENT_DETAILS_CLOSE,
   INGREDIENT_DETAILS_OPEN,
   ORDER_DETAILS_CLOSE,
   ORDER_DETAILS_OPEN,
-} from '../actions/ingredient-details-actions';
+} from '../constants/ingredient-details-constants';
 
-const initialState = {
-  infoOfIngredient: {},
+type TIngredientDetailsState = {
+  infoOfIngredient: IIngredient | null;
+  isOpenedIngredientDetails: boolean;
+  isOpenedOrderDetails: boolean;
+};
+
+const initialState: TIngredientDetailsState = {
+  infoOfIngredient: null,
   isOpenedIngredientDetails: false,
   isOpenedOrderDetails: false,
 };
 
-const ingredientDetailsReducer = (state = initialState, action) => {
+const ingredientDetailsReducer = (
+  state = initialState,
+  action: TIngredientDetailsActions
+): TIngredientDetailsState => {
   switch (action.type) {
     case INGREDIENT_DETAILS_OPEN: {
       return {

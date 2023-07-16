@@ -1,13 +1,31 @@
-// import { register } from '../../utils/norma-api';
-
 import { fetchWithRefresh, NORMA_API } from '../../utils/norma-api';
+import { AppDispatch, IUser } from '../../utils/types';
+import {
+  AUTH_REGISTER_FAILED,
+  AUTH_REGISTER_REQUEST,
+  AUTH_REGISTER_SUCCESS,
+} from '../constants/register-constants';
 
-export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
-export const AUTH_REGISTER_SUCCESS = 'AUTH_REGISTER_SUCCESS';
-export const AUTH_REGISTER_FAILED = 'AUTH_REGISTER_FAILED';
+export interface IAuthRegisterRequest {
+  readonly type: typeof AUTH_REGISTER_REQUEST;
+}
 
-export const registerAction = (email, password, name) => {
-  return async (dispatch) => {
+export interface IAuthRegisterSuccess {
+  readonly type: typeof AUTH_REGISTER_SUCCESS;
+  readonly payload?: IUser;
+}
+
+export interface IAuthRegisterFailed {
+  readonly type: typeof AUTH_REGISTER_FAILED;
+}
+
+export type TRegisterActions =
+  | IAuthRegisterRequest
+  | IAuthRegisterSuccess
+  | IAuthRegisterFailed;
+
+export const registerAction = ({ email, password, name }: IUser) => {
+  return async (dispatch: AppDispatch): Promise<void> => {
     dispatch({ type: AUTH_REGISTER_REQUEST });
     fetchWithRefresh(`${NORMA_API}/auth/register`, {
       method: 'POST',
@@ -23,7 +41,7 @@ export const registerAction = (email, password, name) => {
           localStorage.setItem('refreshToken', response.refreshToken);
           dispatch({
             type: AUTH_REGISTER_SUCCESS,
-            payload: { user: response.user },
+            payload: response.user,
           });
         }
       })

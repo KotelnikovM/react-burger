@@ -5,16 +5,22 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from './reset-password.module.css';
 import { passwordReset } from '../../services/actions/user-actions';
+import { useDispatch } from '../../utils/types';
+
+type TForm = {
+  password: string;
+  token: string;
+};
 
 export const ResetPasswordPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<TForm>({
     password: '',
     token: '',
   });
@@ -25,9 +31,10 @@ export const ResetPasswordPage = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //@ts-ignore
 
-    dispatch(passwordReset(form.password, form.token)).then(() => {
+    passwordReset({ password: form.password, token: form.token })(
+      dispatch
+    ).then(() => {
       localStorage.removeItem('correctEmail');
       navigate('/login');
     });
