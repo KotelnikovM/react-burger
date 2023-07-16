@@ -11,6 +11,7 @@ import orderStyles from './order.module.css';
 import { IFeed, IIngredient, useSelector } from '../../utils/types';
 import { Overlay } from './overlay-for-image-ingredient/overlay';
 import { paths } from '../../utils/routes';
+import { getBurgerIngredient } from '../../utils/selector-functions';
 
 type OrderProps = {
   order: IFeed;
@@ -23,7 +24,7 @@ export function Order({
   ordersPage,
   location,
 }: OrderProps): ReactElement {
-  const { ingredients } = useSelector((store) => store.burgerIngredient);
+  const { ingredients } = useSelector(getBurgerIngredient);
 
   let status: string = '';
   let stylesStatus = orderStyles.statusDone;

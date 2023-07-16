@@ -181,7 +181,7 @@ const BurgerConstructor = (): JSX.Element => {
           )}
         </>
         {isNotAuth && (
-          <Modal>
+          <Modal onCloseModal={onCloseModal}>
             <NotAuthDetails />
           </Modal>
         )}

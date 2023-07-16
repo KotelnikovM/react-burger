@@ -9,6 +9,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_START,
 } from '../../services/actions/WS-action';
+import { getWs } from '../../utils/selector-functions';
 
 export function Feed(): ReactElement {
   const location = useLocation();
@@ -18,9 +19,9 @@ export function Feed(): ReactElement {
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
-  }, []);
+  }, [dispatch]);
 
-  const { orders, total, totalToday } = useSelector((store) => store.ws);
+  const { orders, total, totalToday } = useSelector(getWs);
 
   const doneOrders: Array<IFeed> = [];
   const pendingOrders: Array<IFeed> = [];

@@ -16,6 +16,7 @@ import profileStyles from './profile.module.css';
 import { ProfileAsideMenu } from './aside-menu/aside-menu';
 import { useDispatch, useSelector } from '../../utils/types';
 import { patchUser } from '../../services/actions/user-actions';
+import { getAuth } from '../../utils/selector-functions';
 
 type TForm = {
   name: string;
@@ -25,7 +26,7 @@ type TForm = {
 
 export const Profile = React.memo((): ReactElement => {
   const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.auth);
+  const { user } = useSelector(getAuth);
   const [form, setForm] = useState<TForm>({
     name: '',
     email: '',

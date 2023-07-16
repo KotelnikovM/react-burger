@@ -1,8 +1,7 @@
 import { ReactElement, useMemo, useEffect } from 'react';
-import { useMatch, useNavigate, useParams } from 'react-router-dom';
+import { useMatch, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import {
-  CloseIcon,
   CurrencyIcon,
   FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -18,25 +17,29 @@ import {
 import { IIngredient, useDispatch, useSelector } from '../../../utils/types';
 import { paths } from '../../../utils/routes';
 import { Ingredient } from '../ingredient/ingredient';
+import {
+  getBurgerIngredient,
+  getWsAuthOrders,
+  getWsOrders,
+} from '../../../utils/selector-functions';
 
 type TOrderInfo = {
   newPage: boolean;
 };
 
 export function OrderInfo({ newPage }: TOrderInfo): ReactElement {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { id } = useParams<{ id: string }>();
-  const { ingredients } = useSelector((store) => store.burgerIngredient);
+  const { ingredients } = useSelector(getBurgerIngredient);
   const ingredientsCopy: Array<IIngredient> = structuredClone(ingredients);
 
   const isOrders = !!useMatch<string, string>(
     `${paths.orders}${paths.orderDetails}`
   );
 
-  const feedOrders = useSelector((store) => store.ws.orders);
-  const profileOrders = useSelector((store) => store.wsAuth.orders);
+  const feedOrders = useSelector(getWsOrders);
+  const profileOrders = useSelector(getWsAuthOrders);
 
   const orders = isOrders ? profileOrders : feedOrders;
 
@@ -50,10 +53,9 @@ export function OrderInfo({ newPage }: TOrderInfo): ReactElement {
     return () => {
       if (isOrders) {
         dispatch({ type: WS_AUTH_CONNECTION_CLOSED });
+      } else {
+        dispatch({ type: WS_CONNECTION_CLOSED });
       }
-      // else {
-      //   dispatch({ type: WS_CONNECTION_CLOSED });
-      // }
     };
   }, [dispatch, isOrders]);
 

@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from '../../../utils/types';
 import { Order } from '../../../components/order/order';
 import { ProfileAsideMenu } from '../aside-menu/aside-menu';
+import { getWsAuth } from '../../../utils/selector-functions';
 
 const Orders = (): JSX.Element => {
   const location = useLocation();
@@ -25,7 +26,7 @@ const Orders = (): JSX.Element => {
     };
   }, [dispatch]);
 
-  const { orders } = useSelector((store) => store.wsAuth);
+  const { orders } = useSelector(getWsAuth);
 
   return (
     <section className={stylesOrders.wrapper}>
