@@ -13,13 +13,13 @@ type TBurgerConstructorState = {
   ingredients: ReadonlyArray<IIngredient>;
 };
 
-const initialtState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   bun: null,
   ingredients: [],
 };
 
 export const burgerConstructorReducer = (
-  state = initialtState,
+  state = initialState,
   action: TBurgerConstructorActions
 ): TBurgerConstructorState => {
   switch (action.type) {
@@ -60,7 +60,7 @@ export const burgerConstructorReducer = (
 
     case CLEAR_BURGER_CONSTRUCTOR_STATE: {
       return {
-        ...initialtState,
+        ...initialState,
       };
     }
 
