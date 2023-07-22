@@ -6,16 +6,6 @@ import {
 } from '../../actions/WS-auth-action';
 import { initialState, wsAuthReducer } from '../WS-auth-reducer';
 
-export interface IFeed {
-  createdAt: string;
-  ingredients: string[];
-  name: string;
-  number: number;
-  status: string;
-  updatedAt: string;
-  _id: string;
-}
-
 const order = {
   createdAt: '2000-04-25',
   ingredients: ['bun', 'sauce'],
@@ -26,7 +16,7 @@ const order = {
   _id: 'qwfdqwfk123124124',
 };
 
-const mainOrders = {
+export const mainOrders = {
   success: true,
   total: 2,
   totalToday: 2,
