@@ -34,7 +34,7 @@ export type TAuthReducerInitialState = {
   isCorrectEmail: boolean;
 };
 
-const initialState: TAuthReducerInitialState = {
+export const initialState: TAuthReducerInitialState = {
   isLoading: false,
   isError: false,
   user: null,
@@ -75,7 +75,7 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
     case AUTH_CHECKED: {
       return {
         ...state,
-        isAuthChecked: action.payload.isAuthChecked,
+        isAuthChecked: true,
       };
     }
 
