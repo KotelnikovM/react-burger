@@ -1,3 +1,4 @@
+import { IIngredient } from '../../../utils/types';
 import {
   INGREDIENT_DETAILS_CLOSE,
   INGREDIENT_DETAILS_OPEN,
@@ -8,7 +9,7 @@ import ingredientDetailsReducer, {
   initialState,
 } from '../ingredient-details-reducer';
 
-const ingredient = {
+const ingredient: IIngredient = {
   _id: '60d3b41abdacab0026a733c6',
   name: 'Краторная булка N-200i',
   type: 'bun',
@@ -20,7 +21,7 @@ const ingredient = {
   image: 'https://code.s3.yandex.net/react/code/bun-02.png',
   image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
   image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-  __v: 0,
+  __v: '0',
 };
 
 describe('Redux ingredient details reducer', () => {

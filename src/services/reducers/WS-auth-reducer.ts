@@ -12,7 +12,7 @@ type TWSState = {
   orders: Array<IFeed>;
 };
 
-const initialState: TWSState = {
+export const initialState: TWSState = {
   wsConnected: false,
   orders: [],
 };

@@ -21,7 +21,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/bun-02.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733c7',
@@ -35,7 +35,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/bun-01.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733c8',
@@ -49,7 +49,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/meat-03.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-03-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/meat-03-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733c9',
@@ -63,7 +63,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/meat-02.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733ca',
@@ -77,7 +77,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/meat-04.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-04-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/meat-04-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733cb',
@@ -91,7 +91,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/meat-01.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733cc',
@@ -105,7 +105,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/sauce-02.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-02-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733cd',
@@ -119,7 +119,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/sauce-04.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-04-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-04-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733ce',
@@ -133,7 +133,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733cf',
@@ -147,7 +147,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/sauce-01.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733d0',
@@ -163,7 +163,7 @@ const ingredients = [
       'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
     image_large:
       'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733d1',
@@ -177,7 +177,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/sp_1.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/sp_1-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733d2',
@@ -191,7 +191,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/core.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733d3',
@@ -205,7 +205,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/salad.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/salad-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/salad-large.png',
-    __v: 0,
+    __v: '0',
   },
   {
     _id: '60d3b41abdacab0026a733d4',
@@ -219,7 +219,7 @@ const ingredients = [
     image: 'https://code.s3.yandex.net/react/code/cheese.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png',
-    __v: 0,
+    __v: '0',
   },
 ];
 
