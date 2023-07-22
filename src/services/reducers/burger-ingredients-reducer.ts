@@ -15,7 +15,7 @@ type TBurgerIngredientsState = {
   ingredients: IIngredient[];
 };
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
   isLoading: false,
   hasError: false,
   ingredients: [],
