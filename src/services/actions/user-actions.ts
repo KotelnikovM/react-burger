@@ -212,7 +212,6 @@ export const logout = () => {
       }),
     })
       .then((res) => {
-        console.log(res);
         if (res && res.success) {
           dispatch({ type: LOGOUT_REQUEST_SUCCESS });
         }

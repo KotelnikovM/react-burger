@@ -83,6 +83,7 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
       return {
         ...state,
         user: action.payload,
+        isLoading: false,
       };
     }
 
@@ -109,6 +110,7 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
       return {
         ...state,
         user: null,
+        isLoading: false,
       };
     }
 
