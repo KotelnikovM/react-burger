@@ -29,7 +29,7 @@ const Modal = ({ children, onCloseModal }: TModalProps): JSX.Element | null => {
         <>
           <div className={styles.modal__content__active}>
             {children}
-            <div className={styles.closeIcon}>
+            <div className={styles.closeIcon} data-test="modal-close-icon">
               <CloseIcon onClick={onCloseModal} type="primary" />
             </div>
           </div>

@@ -17,7 +17,10 @@ import { NotAuthDetails } from '../modal/not-auth-details/not-auth-details';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient, useDispatch, useSelector } from '../../utils/types';
 import { v4 as uuid } from 'uuid';
-import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from '../../services/constants/burger-constructor-constants';
+import {
+  ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
+  CLEAR_BURGER_CONSTRUCTOR_STATE,
+} from '../../services/constants/burger-constructor-constants';
 import {
   ORDER_DETAILS_CLOSE,
   ORDER_DETAILS_OPEN,
@@ -52,6 +55,13 @@ const BurgerConstructor = (): JSX.Element => {
     dispatch({ type: ORDER_DETAILS_CLOSE });
     navigate(-1);
   };
+
+  const onCloseOrderModal = () => {
+    dispatch({ type: CLEAR_BURGER_CONSTRUCTOR_STATE });
+    dispatch({ type: ORDER_DETAILS_CLOSE });
+    navigate(-1);
+  };
+
   const [, dropMains] = useDrop<IIngredient>({
     accept: ['main', 'sauce'],
     drop(item) {
@@ -139,6 +149,7 @@ const BurgerConstructor = (): JSX.Element => {
                 textAlign: 'center',
               }}
               className="constructor-element "
+              data-test="constructor-drop-target-notBun"
             >
               <span
                 style={{
@@ -167,6 +178,7 @@ const BurgerConstructor = (): JSX.Element => {
               type="primary"
               size="medium"
               onClick={onClickOrder}
+              data-test="order-button"
             >
               Оформить заказ
             </Button>
@@ -174,7 +186,7 @@ const BurgerConstructor = (): JSX.Element => {
 
           {isOpened && (
             <>
-              <Modal onCloseModal={onCloseModal}>
+              <Modal onCloseModal={onCloseOrderModal}>
                 <OrderDetails />
               </Modal>
             </>

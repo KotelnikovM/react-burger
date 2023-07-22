@@ -1,6 +1,7 @@
 import { IIngredient } from '../../utils/types';
 import {
   ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
+  CLEAR_BURGER_CONSTRUCTOR_STATE,
   DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR,
   UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
   UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
@@ -27,11 +28,16 @@ export interface IUpdateBunInBurgerConstructorAction {
   readonly isBun?: boolean;
 }
 
+export interface IClearBurgerConstructorState {
+  readonly type: typeof CLEAR_BURGER_CONSTRUCTOR_STATE;
+}
+
 export type TBurgerConstructorActions =
   | IUpgradeIngredientsAction
   | IAddIngredientToBurgerConstructorAction
   | IDeleteIngredientFromBurgerConstructorAction
-  | IUpdateBunInBurgerConstructorAction;
+  | IUpdateBunInBurgerConstructorAction
+  | IClearBurgerConstructorState;
 
 export const updateIngredients = (
   ingredients: IIngredient[]
