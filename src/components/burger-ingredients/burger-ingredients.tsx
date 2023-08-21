@@ -10,12 +10,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from './ingredients-group/ingredients-group';
 import styles from './burger-ingredients.module.css';
 // import { useDispatch, useSelector } from 'react-redux';
-import { IIngredient, useDispatch, useSelector } from '../../utils/types';
+import { IIngredient, useSelector } from '../../utils/types';
 
 const BurgerIngredients = (): JSX.Element => {
   const data = useSelector((state) => state.burgerIngredient.ingredients);
-
-  const dispatch = useDispatch();
 
   const Tabs = {
     BUNS: 'buns',
@@ -23,7 +21,7 @@ const BurgerIngredients = (): JSX.Element => {
     MAINS: 'mains',
   };
 
-  const [current, setCurrent] = useState(Tabs.BUNS);
+  const [current, setCurrent] = useState<string>(Tabs.BUNS);
 
   const buns = useMemo(
     () => data.filter((item: IIngredient) => item.type === 'bun'),
@@ -40,19 +38,19 @@ const BurgerIngredients = (): JSX.Element => {
     [data]
   );
 
-  const tabsRef = useRef<HTMLHeadingElement>(null);
-  const bunsRef = useRef<HTMLHeadingElement>(null);
-  const sausesRef = useRef<HTMLHeadingElement>(null);
-  const mainsRef = useRef<HTMLHeadingElement>(null);
+  const tabsRef = useRef<HTMLUListElement>(null);
+  const bunsRef = useRef<HTMLHeadingElement | null>(null);
+  const sausesRef = useRef<HTMLHeadingElement | null>(null);
+  const mainsRef = useRef<HTMLHeadingElement | null>(null);
 
   const tabSwitch = useCallback(() => {
     const calculationDifferences = (
-      ref: React.RefObject<HTMLHeadElement>
+      ref: React.RefObject<HTMLHeadingElement>
     ): number => {
       if (tabsRef.current && ref.current) {
         Math.abs(
           tabsRef.current.getBoundingClientRect().bottom -
-            ref.current.getBoundingClientRect().top
+            ref.current.getBoundingClientRect().bottom
         );
       }
       return 0;
@@ -69,7 +67,7 @@ const BurgerIngredients = (): JSX.Element => {
 
   useEffect(() => {
     tabSwitch();
-  }, [tabSwitch, dispatch]);
+  }, [tabSwitch]);
 
   const onClickTab = (
     tabName: string,
@@ -83,10 +81,10 @@ const BurgerIngredients = (): JSX.Element => {
 
   return (
     <section className={styles.burgerIngredients}>
-      <div className={styles.burgerIngredientsTabs} ref={tabsRef}>
+      <ul className={styles.burgerIngredientsTabs} ref={tabsRef}>
         <Tab
           value="buns"
-          active={current === 'buns'}
+          active={current === Tabs.BUNS}
           onClick={() => {
             onClickTab(Tabs.BUNS, bunsRef);
           }}
@@ -111,7 +109,7 @@ const BurgerIngredients = (): JSX.Element => {
         >
           Начинки
         </Tab>
-      </div>
+      </ul>
       <div className={`${styles.wrap} custom-scroll`} onScroll={tabSwitch}>
         <p className="text text_type_main-medium" ref={bunsRef}>
           Булки
