@@ -116,15 +116,15 @@ const BurgerIngredients = (): JSX.Element => {
         <p className="text text_type_main-medium" ref={bunsRef}>
           Булки
         </p>
-        <IngredientsGroup data={buns} />
+        <IngredientsGroup data={buns} type={buns[0]?.type} />
         <p className="text text_type_main-medium" ref={sausesRef}>
           Соусы
         </p>
-        <IngredientsGroup data={sauses} />
+        <IngredientsGroup data={sauses} type={sauses[0]?.type} />
         <p className="text text_type_main-medium" ref={mainsRef}>
           Начинки
         </p>
-        <IngredientsGroup data={mains} />
+        <IngredientsGroup data={mains} type={mains[0]?.type} />
       </div>
     </section>
   );

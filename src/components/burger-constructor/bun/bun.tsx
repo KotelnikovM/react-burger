@@ -41,7 +41,7 @@ const Bun = ({ bun, coordinate, position }: TBunProps): JSX.Element => {
   });
 
   return (
-    <div ref={dropBuns}>
+    <div ref={dropBuns} data-test="constructor-drop-target-bun">
       {bun ? (
         <ConstructorElement
           type={coordinate}

@@ -2,6 +2,7 @@ import { IIngredient } from '../../utils/types';
 import { TBurgerConstructorActions } from '../actions/burger-constructor-actions';
 import {
   ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
+  CLEAR_BURGER_CONSTRUCTOR_STATE,
   DELETE_INGREDIENT_FROM_BURGER_CONSTRUCTOR,
   UPDATE_BUN_IN_BURGER_CONSTRUCTOR,
   UPDATE_INGREDIENTS_IN_BURGER_CONSTRUCTOR,
@@ -12,13 +13,13 @@ type TBurgerConstructorState = {
   ingredients: ReadonlyArray<IIngredient>;
 };
 
-const initialtState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   bun: null,
   ingredients: [],
 };
 
 export const burgerConstructorReducer = (
-  state = initialtState,
+  state = initialState,
   action: TBurgerConstructorActions
 ): TBurgerConstructorState => {
   switch (action.type) {
@@ -54,6 +55,12 @@ export const burgerConstructorReducer = (
       return {
         ...state,
         ingredients: action.payload,
+      };
+    }
+
+    case CLEAR_BURGER_CONSTRUCTOR_STATE: {
+      return {
+        ...initialState,
       };
     }
 

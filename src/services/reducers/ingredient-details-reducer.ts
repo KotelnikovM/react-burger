@@ -13,7 +13,7 @@ type TIngredientDetailsState = {
   isOpenedOrderDetails: boolean;
 };
 
-const initialState: TIngredientDetailsState = {
+export const initialState: TIngredientDetailsState = {
   infoOfIngredient: null,
   isOpenedIngredientDetails: false,
   isOpenedOrderDetails: false,

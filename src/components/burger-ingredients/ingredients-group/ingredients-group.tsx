@@ -4,11 +4,15 @@ import { IIngredient } from '../../../utils/types';
 
 type TIngredientGroupProps = {
   data: IIngredient[];
+  type: string;
 };
 
-const IngredientsGroup = ({ data }: TIngredientGroupProps): JSX.Element => {
+const IngredientsGroup = ({
+  data,
+  type,
+}: TIngredientGroupProps): JSX.Element => {
   return (
-    <div className={styles.box}>
+    <div className={styles.box} data-test={`ingredient-group-${type}`}>
       {data?.map((item: IIngredient) => {
         return <IngredientItem key={item._id} {...item} />;
       })}

@@ -8,7 +8,9 @@ const OrderDetails = (): JSX.Element => {
   return (
     <div className={styles.orderDetailsContainer}>
       <p className="mb-4 text text_type_digits-large">{number}</p>
-      <p className="mb-15 text text_type_main-default">идентификатор заказа</p>
+      <p className="mb-15 text text_type_main-default" data-test="identify">
+        идентификатор заказа
+      </p>
       <img className="mb-15" src={img} alt="done" />
       <p className="mb-2 text text_type_main-small">
         Ваш заказ начали готовить

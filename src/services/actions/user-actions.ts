@@ -118,7 +118,7 @@ export type TResetPasswordRequestFailed = {
 
 export type TAuthChecked = {
   readonly type: typeof AUTH_CHECKED;
-  readonly payload: { isAuthChecked: boolean };
+  readonly payload?: { isAuthChecked: boolean };
 };
 
 export type TUserActions =
@@ -212,7 +212,6 @@ export const logout = () => {
       }),
     })
       .then((res) => {
-        console.log(res);
         if (res && res.success) {
           dispatch({ type: LOGOUT_REQUEST_SUCCESS });
         }
